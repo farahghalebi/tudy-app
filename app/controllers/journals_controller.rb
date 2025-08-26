@@ -9,6 +9,7 @@ class JournalsController < ApplicationController
     # -> ask the AI here
     @journal.title = RubyLLM.chat.ask("create a 2-5 world title for this journal entry: #{@journal.content}").content
     @journal.summary = RubyLLM.chat.ask("create a 2 sentence summary for this journal entry: #{@journal.content}").content
+    @journal.user = current_user
     if @journal.save
       redirect_to root_path, notice: "Journal created successfully."
     else
