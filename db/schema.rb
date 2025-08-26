@@ -26,7 +26,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_154324) do
 
   create_table "reminders", force: :cascade do |t|
     t.bigint "todo_id", null: false
-    t.interval "delay"
+    t.integer "delay"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["todo_id"], name: "index_reminders_on_todo_id"
