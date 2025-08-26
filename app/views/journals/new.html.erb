@@ -1,0 +1,6 @@
+<h1>Create a NEW Journal</h1>
+
+<%= simple_form_for @journal do |f| %>
+  <%= f.input :content, placeholder: "What's on your mind?"%>
+  <%= f.button :submit, "Save and send to AI", class: "btn btn-primary" %>
+<% end %>
