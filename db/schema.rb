@@ -10,9 +10,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_25_150418) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_25_154324) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "journals", force: :cascade do |t|
+    t.string "title"
+    t.string "content"
+    t.text "summary"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_journals_on_user_id"
+  end
+
+  create_table "reminders", force: :cascade do |t|
+    t.bigint "todo_id", null: false
+    t.interval "delay"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["todo_id"], name: "index_reminders_on_todo_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.text "content"
+    t.bigint "journal_id", null: false
+    t.bigint "todo_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["journal_id"], name: "index_tags_on_journal_id"
+    t.index ["todo_id"], name: "index_tags_on_todo_id"
+  end
+
+  create_table "todos", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.date "due_date"
+    t.boolean "status"
+    t.bigint "journal_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["journal_id"], name: "index_todos_on_journal_id"
+    t.index ["user_id"], name: "index_todos_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -26,4 +68,10 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_25_150418) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "journals", "users"
+  add_foreign_key "reminders", "todos"
+  add_foreign_key "tags", "journals"
+  add_foreign_key "tags", "todos"
+  add_foreign_key "todos", "journals"
+  add_foreign_key "todos", "users"
 end
