@@ -1,5 +1,10 @@
-# db/seeds.rb
 # Seeds for Users, Journals, Todos, Reminders, and Tags
+Reminder.destroy_all
+Tag.destroy_all
+Todo.destroy_all
+Journal.destroy_all
+User.destroy_all
+
 puts "Starting seeding..."
 
 ActiveRecord::Base.transaction do
@@ -73,13 +78,12 @@ ActiveRecord::Base.transaction do
 
   # Reminders -------------------------------------------------------------
   reminders_data = [
-    { todo: "Prepare showcase deck", minutes: 120 },   # 2 hours before
-    { todo: "Flight to Paris (Sep 8)", minutes: 1440 } # 1 day before, 24 hours
+    { todo: "Prepare showcase deck", day: 1 },
+    { todo: "Flight to Paris (Sep 8)", day: 2 }
   ]
-
   reminders_data.each do |data|
     todo = todos[data[:todo]]
-    Reminder.find_by!(todo_id: todo.id, delay: data[:minutes].minutes)
+    Reminder.find_or_create_by!(todo_id: todo.id, delay: data[:day])
   end
   puts "Reminders: #{Reminder.count}"
 
