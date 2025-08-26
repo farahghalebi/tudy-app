@@ -12,4 +12,5 @@ Rails.application.routes.draw do
 
   resources :journals, only: [:new, :create, :show]
 
+  get 'journals/:id/todo_brief', to: 'journals#todo_brief', as: :journal_todo_brief
 end
