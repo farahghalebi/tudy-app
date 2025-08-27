@@ -13,7 +13,7 @@
   <body>
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
-    <div class="container mt-3 ">
+    <div class="<%= controller_name == 'journals' && action_name == 'new' ? '' : 'container mt-3'%>">
       <div class="d-flex justify-content-center align-items-center vh-100">
         <div class="text-center">
           <%= yield %>

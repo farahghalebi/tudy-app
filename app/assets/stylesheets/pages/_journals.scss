@@ -1,0 +1,66 @@
+//app/assets/stylesheets/pages/_journals.scss
+
+//background --> 'container mt-3' in applications.html.erb for now adjusted
+
+.journal-new-page {
+  // bg-image needs to be uploaded to cloudinary
+  background-image: url('https://images.unsplash.com/photo-1586075010923-2dd4570fb338?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+}
+
+// main header
+
+.journal-new-page h1 {
+  font-family: $journal-ai-handwritten-h1;
+  color: $ballpoint-pen-blue;
+  font-size: 2rem;
+  padding: 2rem 4rem 4rem 2rem; // top, right, bottom, left
+  text-align: start;
+}
+
+// form layout
+
+.journal-form {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+}
+
+.journal-form .input {
+  flex: 1;
+}
+
+.journal-input {
+  flex: 9;
+}
+
+// input field
+
+.journal-new-page .journal-input {
+  background-color: transparent;
+  font-family: $journal-user-body;
+  font-size: 1.5rem;
+  color: $ballpoint-pen-blue;
+  text-align: start;
+  display: flex;
+  align-items: flex-start;
+  min-height: 500px;
+  border: none;
+  padding: 2rem 1.5rem 1rem 2rem; // top, right, bottom, left
+  padding-top: 8px;
+  padding-bottom: 0;
+  line-height: normal;
+  resize: vertical;
+  overflow: auto;
+  line-height: 1.5;
+}
+
+// tbd. button
+
+.journal-submit{
+  flex: 1;
+  font-size: 2rem;
+  line-height: 1;
+}
