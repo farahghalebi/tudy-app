@@ -1,3 +1,20 @@
 <h1>Todo Brief</h1>
 <p><%= @journal.created_at.to_date %></p>
-<p><%= @journal.title %></p>
+<p>Journal Title:</p>
+<h3><%= @journal.title %></h3>
+<p>Journal Summary:</p>
+<p><%= @journal.summary %></p>
+
+<p>Tags:</p>
+<ul class="list-unstyled">
+  <% @journal.tags.each do |tag| %>
+      <li># <%= tag.name %> - <%= tag.content %></li>
+  <% end %>
+</ul>
+
+<p>TODOs:</p>
+<ul>
+  <% params[:todos_brief].each do |todo|%>
+    <li><%= todo["title"] %> - <%= todo["description"] %></li>
+  <% end %>
+</ul>
