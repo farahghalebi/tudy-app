@@ -9,7 +9,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-
   resources :journals, only: [:new, :create, :show]
 
   get 'journals/:id/todo_brief', to: 'journals#todo_brief', as: :journal_todo_brief
