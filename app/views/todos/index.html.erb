@@ -1,0 +1,18 @@
+<h1>TODOs List</h1>
+<ul class="list-unstyled">
+  <% @todos.each do |todo|%>
+    <li>
+      <%= link_to "✓", todos_path,
+          method: :delete,
+          data: { confirm: "Are you sure?" }
+      %>
+      <%= todo.title %>
+      <%= link_to "✕", todos_path,
+          method: :delete,
+          data: { confirm: "Are you sure?" }
+      %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to "<", journal_todo_brief_path(params[:journal_id]) %>

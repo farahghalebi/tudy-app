@@ -12,9 +12,15 @@
   <% end %>
 </ul>
 
-<p>TODOs:</p>
-<ul>
-  <% params[:todos_brief].each do |todo|%>
-    <li><%= todo["title"] %> - <%= todo["description"] %></li>
-  <% end %>
-</ul>
+<%= link_to todos_path(journal_id: @journal.id), class: "text-decoration-none" do %>
+  <div class="todos_brief">
+    <p>TODOs:</p>
+    <ul>
+      <% @journal.todos.each do |todo|%>
+        <li><%= todo["title"] %> - <%= todo["description"] %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= link_to "<", journal_path(@journal) %>

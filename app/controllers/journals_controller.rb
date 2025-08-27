@@ -18,18 +18,13 @@ class JournalsController < ApplicationController
   def create
     @journal = Journal.new(journal_params)
 
-    # TODO_brief - WIP (@David) ----------------------
-    @todos_response = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TODOS_PROMT} for this journal entry: #{@journal.content}").content
-    @todos_json = JSON.parse(@todos_response)
-    # raise
-
     # Title & Summary -----------------------------------
     @journal.title = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TITLE_PROMT} for this journal entry: #{@journal.content}").content
     @journal.summary = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{SUMMARY_PROMT} for this journal entry: #{@journal.content}").content
 
     @journal.user = current_user
     if @journal.save
-      redirect_to journal_todo_brief_path(@journal, todos_brief: @todos_json), notice: "Journal created successfully."
+      redirect_to journal_todo_brief_path(@journal), notice: "Journal created successfully."
     else
       render :new
     end
@@ -43,9 +38,22 @@ class JournalsController < ApplicationController
       @tag.name = tag["name"]
       @tag.content = tag["content"]
       @tag.journal_id = @journal.id
-      @tag.save
+      @tag.save                           # ??? Should it have a safety: when save doesnt work ???
     end
 
+    # TODO_brief - WIP (@David) ----------------------
+    @todos_response = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TODOS_PROMT} for this journal entry: #{@journal.content}").content
+    @todos_json = JSON.parse(@todos_response)
+
+    @todos_json.each do |todo|
+      @todo = Todo.new
+      @todo.title = todo["title"]
+      @todo.description = todo["description"]
+      @todo.status = false
+      @todo.journal_id = @journal.id
+      @todo.user_id = @journal.user_id
+      @todo.save                        # ??? Should it have a safety: when save doesnt work ???
+    end
   end
 
   def show
