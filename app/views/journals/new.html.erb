@@ -1,6 +1,9 @@
-<h1>Create a NEW Journal</h1>
+<div class="journal-new-page">
+  <h1>a penny for your thought...</h1>
 
-<%= simple_form_for @journal do |f| %>
-  <%= f.input :content, placeholder: "What's on your mind?"%>
-  <%= f.button :submit, "Save and send to AI", class: "btn btn-primary" %>
-<% end %>
+  <div class="journal-form-wrapper">
+    <%= simple_form_for @journal, html: { class: "journal-form" } do |f| %>
+      <%= f.input :content, as: :text, label: false, placeholder: "What's on your mind?", input_html: { class: "journal-input" } %>
+      <%= f.button :submit, "➡️", class: "journal-submit" %>
+    <% end %>
+</div>
