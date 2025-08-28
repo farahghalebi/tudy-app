@@ -1,0 +1,12 @@
+<!-- app/views/todos/completed.html.erb-->
+<% if @journal %>
+  <h1>Completed To-Dos for <%= @journal.title %></h1>
+<% else %>
+  <h1>Completed To-Dos</h1>
+<% end %>
+
+<ul class="list-unstyled">
+  <%= render @todos %>
+</ul>
+
+<%= link_to "Back to all todos", todos_path %>

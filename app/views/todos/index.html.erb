@@ -6,18 +6,7 @@
   <% end %>
 
 <ul class="list-unstyled">
-  <% @todos.each do |todo|%>
-    <li>
-      <li id="<%= dom_id(todo) %>">
-      <%= form_with(model: todo, url: todo_path(todo), method: :patch, data: { turbo: true }) do |form| %>
-        <%= form.check_box :status, onchange: "this.form.requestSubmit()" %>
-      <% end %>
-      <%= todo.title %>
-      <%= link_to "✏️", edit_todo_path(todo) %>
-      <%= link_to "❌", todo_path(todo),
-                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
-    </li>
-  <% end %>
+  <%= render @todos %>
 </ul>
 
 <% if params[:journal_id].present? %>
