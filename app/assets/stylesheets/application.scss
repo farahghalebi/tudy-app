@@ -12,3 +12,12 @@
 @import "pages/index";
 @import "pages/journals";
 @import "pages/backgrounds";
+
+// Keep vertical pan; let JS handle horizontal swipe
+[data-controller="swipe"] {
+  touch-action: pan-y;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.5s;
+}
