@@ -10,5 +10,14 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
-@import "pages/journals";
-@import "pages/backgrounds";
+
+.custom-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0 10%;
+  margin: 0 auto;
+}

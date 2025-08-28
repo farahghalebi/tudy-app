@@ -13,11 +13,9 @@
   <body class="<%= content_for?(:body_class) ? yield(:body_class) : '' %>">
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
-    <div class="<%= content_for?(:body_class) ? '' : 'container mt-3' %>">
-      <div class="d-flex justify-content-center align-items-center vh-100">
-        <div class="text-center">
-          <%= yield %>
-        </div>
+    <div class="<%= content_for?(:body_class) ? '' : ' mt-3' %>">
+      <div class="custom-container">
+        <%= yield %>
       </div>
     </div>
   </body>
