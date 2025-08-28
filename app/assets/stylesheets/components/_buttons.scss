@@ -1,0 +1,31 @@
+// tbd. button
+
+.button-swipe {
+  flex: 1;
+  font-size: 3rem;
+  line-height: 1;
+  position: fixed;
+  text-decoration: none;   // removes underline
+  color: inherit;          // inherits text color from parent
+  opacity: 0.5;            // 50% transparent
+
+  &.right {
+    top: 50%;
+    right: 20px;
+  }
+
+  &.left {
+    top: 50%;
+    left: 20px;
+  }
+
+  &.up {
+    top: 20px;
+    left: 50%;
+  }
+
+  &.down {
+    bottom: 20px;
+    left: 50%;
+  }
+}

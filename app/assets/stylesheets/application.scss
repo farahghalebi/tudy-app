@@ -20,4 +20,14 @@
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.5s;
+
+.custom-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-height: 100vh;
+  width: 100%;
+  padding: 0 10%;
+  margin: 0 auto;
 }

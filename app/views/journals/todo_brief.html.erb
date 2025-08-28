@@ -1,24 +1,33 @@
-<h1>Todo Brief</h1>
-<p><%= @journal.created_at.to_date %></p>
-<p>Journal Title:</p>
-<h3><%= @journal.title %></h3>
-<p>Journal Summary:</p>
-<p><%= @journal.summary %></p>
+<% content_for :body_class, "crumbled-paper" %>
 
-<p>Tags:</p>
-<ul class="list-unstyled">
-  <% @journal.tags.each do |tag| %>
-      <li># <%= tag.name %> - <%= tag.content %></li>
-  <% end %>
-</ul>
+<div class="journal-new-page">
+  <h1><%= @journal.created_at.strftime("%B %d, %Y") %></h1>
+  <div class="journal-form-wrapper">
+    <h3><%= @journal.title %></h3>
+    <p>Journal Summary:</p>
+    <p><%= @journal.summary %></p>
 
-<%= link_to todos_path(journal_id: @journal.id), class: "text-decoration-none" do %>
-  <div class="todos_brief">
-    <p>TODOs:</p>
-    <ul>
-      <% @journal.todos.each do |todo|%>
-        <li><%= todo["title"] %> - <%= todo["description"] %></li>
+    <p>Tags:</p>
+    <ul class="list-unstyled">
+      <% @journal.tags.each do |tag| %>
+          <li># <%= tag.name %> - <%= tag.content %></li>
       <% end %>
     </ul>
-  </div>
-<% end %>
+
+    <%= link_to todos_path(journal_id: @journal.id), class: "text-decoration-none" do %>
+      <div class="todos_brief">
+        <p>TODOs:</p>
+        <ul>
+          <% @journal.todos.each do |todo|%>
+            <li><%= todo["title"] %> - <%= todo["description"] %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <%= link_to "<", journal_path(@journal), class: "button-swipe left" %>
+    <%= link_to ">", todos_path(journal_id: @journal.id), class: "button-swipe right" %>
+    <%= link_to "V", journal_path(@journal), class: "button-swipe down" %>
+    <%= link_to "^", journal_path(@journal), class: "button-swipe up" %>
+    </div>
+</div>
