@@ -1,16 +1,24 @@
 <% content_for :body_class, "crumbled-paper" %>
 
-<div class="journal-new-page">
+<% oldest = current_user.journals.order(:created_at).last %>
+
+<div class="journal-new-page"
+     data-controller="swipe"
+     data-swipe-left-url-value="<%= journal_path(@journal) %>"
+     data-swipe-right-url-value="<%= todos_path(journal_id: @journal.id) %>"
+     data-swipe-down-url-value="<%= oldest ? journal_todo_brief_path(oldest) : journal_todo_brief_path(@journal) %>">
   <h1><%= @journal.created_at.strftime("%B %d, %Y") %></h1>
+
   <div class="journal-form-wrapper">
     <h3><%= @journal.title %></h3>
+
     <p>Journal Summary:</p>
     <p><%= @journal.summary %></p>
 
     <p>Tags:</p>
     <ul class="list-unstyled">
       <% @journal.tags.each do |tag| %>
-          <li># <%= tag.name %> - <%= tag.content %></li>
+        <li># <%= tag.name %> - <%= tag.content %></li>
       <% end %>
     </ul>
 
@@ -18,16 +26,11 @@
       <div class="todos_brief">
         <p>TODOs:</p>
         <ul>
-          <% @journal.todos.each do |todo|%>
-            <li><%= todo["title"] %> - <%= todo["description"] %></li>
+          <% @journal.todos.each do |todo| %>
+            <li><%= todo.title %> - <%= todo.description %></li>
           <% end %>
         </ul>
       </div>
     <% end %>
-
-    <%= link_to "<", journal_path(@journal), class: "button-swipe left" %>
-    <%= link_to ">", todos_path(journal_id: @journal.id), class: "button-swipe right" %>
-    <%= link_to "V", journal_path(@journal), class: "button-swipe down" %>
-    <%= link_to "^", journal_path(@journal), class: "button-swipe up" %>
-    </div>
+  </div>
 </div>

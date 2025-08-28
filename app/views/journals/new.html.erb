@@ -2,14 +2,15 @@
 
 <div class="journal-new-page"
      data-controller="swipe"
-     data-swipe-right-url-value="<%= root_path %>">
+     data-swipe-left-url-value="<%= root_path %>"
+     data-swipe-right-url-value="<%= journal_todo_brief_path(62) %>">
   <h1>a penny for your thought...</h1>
 
   <div class="journal-form-wrapper">
     <%= simple_form_for @journal, html: { class: "journal-form" } do |f| %>
       <%= f.input :content, as: :text, label: false, placeholder: "What's on your mind?", input_html: { class: "journal-input" } %>
-      <%= f.button :submit, ">", class: "button-swipe right" %>
+      
+      <!-- removed the right button -->
     <% end %>
   </div>
-  <%= link_to "<", root_path, class: "button-swipe left" %>
 </div>
