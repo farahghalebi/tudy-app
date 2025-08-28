@@ -1,3 +1,5 @@
+# config/routes.rb
+
 Rails.application.routes.draw do
   devise_for :users
   root to: "pages#home"
@@ -7,11 +9,14 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  # to does WITHOUT journal
+  resources :todos, only: [:index, :new, :create, :destroy]
+
   # Defines the root path route ("/")
   # root "posts#index"
-  resources :journals, only: [:new, :create, :show]
-  get 'journals/:id/todo_brief', to: 'journals#todo_brief', as: :journal_todo_brief
-
-  resources :todos, only: [:index], as: :todos
-
+  # to dos through journal entries
+  resources :journals, only: [:new, :create, :show] do
+    get 'todo_brief', on: :member
+    resources :todos, only: [:index, :destroy]
+  end
 end

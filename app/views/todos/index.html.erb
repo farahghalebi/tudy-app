@@ -1,18 +1,18 @@
+<!--app/view/todos/index.html.erb-->
 <h1>TODOs List</h1>
 <ul class="list-unstyled">
   <% @todos.each do |todo|%>
     <li>
-      <%= link_to "✓", todos_path,
-          method: :delete,
-          data: { confirm: "Are you sure?" }
-      %>
+      <span class="mark-done-placeholder">✓</span>
       <%= todo.title %>
-      <%= link_to "✕", todos_path,
-          method: :delete,
-          data: { confirm: "Are you sure?" }
-      %>
+      <%= link_to "❌", todo_path(todo),
+                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
     </li>
   <% end %>
 </ul>
 
-<%= link_to "<", journal_todo_brief_path(params[:journal_id]) %>
+<% if params[:journal_id].present? %>
+  <%= link_to "<", todo_brief_journal_path(params[:journal_id]) %>
+<% else %>
+  <%= link_to "< Back", root_path %>
+<% end %>
