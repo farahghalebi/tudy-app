@@ -69,7 +69,9 @@ Rails.application.configure do
   # config.cache_store = :mem_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter = :resque
+  config.active_job.queue_adapter = :solid_queue
+  # DAVID - 28.08.2025 - tried to install solid queue
+  # config.solid_queue.connects_to = { database: { writing: :queue } }
   # config.active_job.queue_name_prefix = "tudy_app_production"
 
   config.action_mailer.perform_caching = false
