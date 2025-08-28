@@ -5,6 +5,8 @@
   <div class="journal-form-wrapper">
     <%= simple_form_for @journal, html: { class: "journal-form" } do |f| %>
       <%= f.input :content, as: :text, label: false, placeholder: "What's on your mind?", input_html: { class: "journal-input" } %>
-      <%= f.button :submit, "➡️", class: "journal-submit" %>
+      <%= f.button :submit, ">", class: "button-swipe right" %>
     <% end %>
+  </div>
+  <%= link_to "<", root_path, class: "button-swipe left" %>
 </div>

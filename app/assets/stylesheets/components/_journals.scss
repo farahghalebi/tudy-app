@@ -7,7 +7,7 @@
   color: $ballpoint-pen-blue;
   font-size: 2rem;
   padding: 2rem 4rem 4rem 2rem; // top, right, bottom, left
-  text-align: start;
+  text-align: center;
 }
 
 // form layout
@@ -57,12 +57,4 @@
     color: $ballpoint-pen-blue;
     opacity: 1;
   }
-}
-
-// tbd. button
-
-.journal-submit{
-  flex: 1;
-  font-size: 2rem;
-  line-height: 1;
 }
