@@ -10,13 +10,12 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # to does WITHOUT journal
-  resources :todos, only: [:index, :new, :create, :destroy]
+  resources :todos, only: [:index, :new, :create, :edit, :update, :destroy]
 
   # Defines the root path route ("/")
-  # root "posts#index"
   # to dos through journal entries
   resources :journals, only: [:new, :create, :show] do
     get 'todo_brief', on: :member
-    resources :todos, only: [:index, :destroy]
+    resources :todos, only: [:index, :edit, :update, :destroy]
   end
 end
