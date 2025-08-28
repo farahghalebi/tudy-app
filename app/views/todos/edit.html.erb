@@ -1,0 +1,24 @@
+<h1> Edit Your To-Do's</h1>
+
+<%= form_with(model: @todo) do |form| %>
+  <div>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :due_date %>
+    <%= form.date_field :due_date %>
+  </div>
+
+  <div>
+    <%= form.submit "Update" %>
+  </div>
+<% end %>
+
+<%= link_to "Back to my To Do List", todos_path %>
