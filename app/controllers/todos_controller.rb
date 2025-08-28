@@ -5,10 +5,10 @@ class TodosController < ApplicationController
 
   def index
     if params[:journal_id]
-      @journal = Journal.find(params[:journal_id])
-      @todos = Todo.where(journal_id: params[:journal_id])
+      @journal = current_user.journals.find(params[:journal_id])
+      @todos = @journal.todos.order(status: :asc, due_date: :asc)
     else
-      @todos = current_user.todos
+      @todos = current_user.todos.all.order(status: :asc, due_date: :asc)
     end
   end
 
