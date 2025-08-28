@@ -1,7 +1,8 @@
 <% content_for :body_class, "crumbled-paper" %>
 
-<%# Find the previous (older) journal by date %>
+<%# Find the previous/next (older/newer) journal by date %>
 <% older_journal = Journal.where("created_at < ?", @journal.created_at).order(created_at: :desc).first %>
+<% newer_journal = Journal.where("created_at > ?", @journal.created_at).order(created_at: :desc).last %>
 
 <div class="journal-new-page">
   <h1><%= @journal.created_at.strftime("%B %d, %Y") %></h1>
@@ -21,10 +22,14 @@
       <% end %>
     </div>
 
+    <%# Swipe Navigation from Page to Page %>
     <%= link_to "<", root_path(journal_id: @journal.id), class: "button-swipe left" %>
     <%= link_to ">", todos_path(journal_id: @journal.id), class: "button-swipe right" %>
-    <%= link_to "V", journal_path(@journal), class: "button-swipe down" %>
-    <%= link_to "^", journal_path(@journal), class: "button-swipe up" %>
-
+    <% if newer_journal %>
+      <%= link_to "^", journal_path(newer_journal), class: "button-swipe up" %>
+    <% end %>
+    <% if older_journal %>
+      <%= link_to "V", journal_path(older_journal), class: "button-swipe down"%>
+    <% end %>
   </div>
 </div>
