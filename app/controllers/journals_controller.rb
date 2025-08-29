@@ -18,16 +18,18 @@ class JournalsController < ApplicationController
   def create
     @journal = Journal.new(journal_params)
 
-    # Title & Summary -----------------------------------
-    @journal.title = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TITLE_PROMT} for this journal entry: #{@journal.content}").content
-    @journal.summary = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{SUMMARY_PROMT} for this journal entry: #{@journal.content}").content
-
     @journal.user = current_user
     if @journal.save
       redirect_to todo_brief_journal_path(@journal), notice: "Journal created successfully."
     else
       render :new
     end
+
+    # Title & Summary -----------------------------------
+    # @journal.title = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TITLE_PROMT} for this journal entry: #{@journal.content}").content
+    JournalTitleJob.perform_later(@journal, JOURNAL_APP_PROMT, TITLE_PROMT)
+    @journal.summary = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{SUMMARY_PROMT} for this journal entry: #{@journal.content}").content
+
 
     # Tags  -------------------------
     @tags_response = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TAGS_PROMT} for this journal entry: #{@journal.content}").content
