@@ -1,6 +1,8 @@
+# app/models/todos.rb
+
 class Todo < ApplicationRecord
   belongs_to :journal
   belongs_to :user
-  has_many :reminders
-  has_many :tags
+  has_many :reminders, dependent: :destroy
+  has_many :tags, dependent: :destroy
 end

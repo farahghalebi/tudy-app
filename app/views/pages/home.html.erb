@@ -3,9 +3,9 @@
   data-swipe-left-url-value="<%= new_journal_path %>"
   style="min-height:100vh;"
 >
-  <!-- Your existing home content -->
-  <h1>Welcome to Tudy Journal App </h1>
-  <p>Right-swipe to start a new journal</p>
-  <p>
-</p>
+<% content_for :body_class, "crumbled-paper" %>
+<div class="journal-new-page">
+  <h1>Tudy...</h1>
+  <p>... helps you TODO things smarter!</p>
+  <%= link_to ">", new_journal_path, class: "button-swipe right" %>
 </div>

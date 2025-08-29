@@ -76,6 +76,18 @@ ActiveRecord::Base.transaction do
   end
   puts "Todos: #{Todo.count}"
 
+    # Create a standalone todo list
+  Todo.find_or_create_by!(title: "Write a blog post", user: user) do |t|
+    t.description = "Finish the blog post on Rails best practices."
+    t.status = false
+  end
+
+  # Create another standalone todo
+  Todo.find_or_create_by!(title: "Plan vacation", user: user) do |t|
+    t.description = "Research destinations and book flights."
+    t.status = false
+  end
+
   # Reminders -------------------------------------------------------------
   reminders_data = [
     { todo: "Prepare showcase deck", day: 1 },
