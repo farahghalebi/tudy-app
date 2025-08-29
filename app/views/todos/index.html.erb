@@ -21,7 +21,7 @@
 </ul>
 
 <% if params[:journal_id].present? %>
-  <%= link_to "<", todo_brief_journal_path(params[:journal_id]) %>
+  <%= link_to "<", journal_path(params[:journal_id]) %>
 <% else %>
   <%= link_to "< Back", root_path %>
 <% end %>
