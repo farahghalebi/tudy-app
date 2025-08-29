@@ -1,4 +1,4 @@
-// app/javascript/controllers/swipe_controller.js
+// controllers/swipe_controller.js
 import { Controller } from "@hotwired/stimulus"
 import { Turbo } from "@hotwired/turbo-rails"
 
@@ -8,7 +8,7 @@ export default class extends Controller {
     leftUrl: String,
     upUrl: String,
     downUrl: String,
-    threshold:   { type: Number, default: 50 },
+    threshold:   { type: Number, default: 30 },
     restraint:   { type: Number, default: 80 },
     allowedTime: { type: Number, default: 350 },
     guard:       { type: Number, default: 10 }
@@ -20,15 +20,15 @@ export default class extends Controller {
     this._onMove  = this._onMove.bind(this)
     this._onEnd   = this._onEnd.bind(this)
 
-    this.element.addEventListener("touchstart", this._onStart, { passive: true })
-    this.element.addEventListener("touchmove",  this._onMove,  { passive: false })
-    this.element.addEventListener("touchend",   this._onEnd,   { passive: true })
+    document.addEventListener("touchstart", this._onStart, { passive: true })
+    document.addEventListener("touchmove",  this._onMove,  { passive: false })
+    document.addEventListener("touchend",   this._onEnd,   { passive: true })
   }
 
   disconnect() {
-    this.element.removeEventListener("touchstart", this._onStart)
-    this.element.removeEventListener("touchmove",  this._onMove)
-    this.element.removeEventListener("touchend",   this._onEnd)
+    document.removeEventListener("touchstart", this._onStart)
+    document.removeEventListener("touchmove",  this._onMove)
+    document.removeEventListener("touchend",   this._onEnd)
   }
 
   _onStart(e) {
@@ -44,7 +44,7 @@ export default class extends Controller {
     if (this._locked === null && (Math.abs(dx) > this.guardValue || Math.abs(dy) > this.guardValue)) {
       this._locked = Math.abs(dx) > Math.abs(dy) ? "x" : "y"
     }
-    if (this._locked === "x") e.preventDefault()
+    if (this._locked === "x") e.preventDefault() // lock horizontal scroll for confident swipe
   }
 
   _onEnd(e) {
@@ -70,16 +70,25 @@ export default class extends Controller {
     const formEl = this.element.querySelector("form")
     const vt = (fn) => (document.startViewTransition ? document.startViewTransition(fn) : fn())
 
-    if (dir === "right") {
-      // Prefer visiting configured URL; otherwise submit form
-      if (this.hasRightUrlValue) return vt(() => Turbo.visit(this.rightUrlValue))
-      if (formEl) return vt(() => formEl.requestSubmit())
-    } else if (dir === "left") {
-      if (this.hasLeftUrlValue)  return vt(() => Turbo.visit(this.leftUrlValue))
-    } else if (dir === "up") {
-      if (this.hasUpUrlValue)    return vt(() => Turbo.visit(this.upUrlValue))
-    } else if (dir === "down") {
-      if (this.hasDownUrlValue)  return vt(() => Turbo.visit(this.downUrlValue))
+    const submitIfValid = () => {
+      if (!formEl) return
+      const textarea = formEl.querySelector("textarea")
+      const value = textarea ? textarea.value.trim() : ""
+      if (value.length === 0) {
+        textarea?.reportValidity()
+        return
+      }
+      formEl.requestSubmit()
     }
+
+    if (dir === "left") {
+      // If a left URL is provided, go there; otherwise submit form
+      if (this.hasLeftUrlValue) return vt(() => Turbo.visit(this.leftUrlValue))
+      return vt(submitIfValid)
+    }
+
+    if (dir === "right" && this.hasRightUrlValue) return vt(() => Turbo.visit(this.rightUrlValue))
+    if (dir === "up"    && this.hasUpUrlValue)    return vt(() => Turbo.visit(this.upUrlValue))
+    if (dir === "down"  && this.hasDownUrlValue)  return vt(() => Turbo.visit(this.downUrlValue))
   }
 }
