@@ -5,10 +5,16 @@ class TodosController < ApplicationController
 
   def index
     if params[:journal_id]
-      @journal = Journal.find(params[:journal_id])
-      @todos = Todo.where(journal_id: params[:journal_id])
+      @journal = current_user.journals.find(params[:journal_id])
+      todos_scope = @journal.todos
     else
-      @todos = current_user.todos
+      todos_scope = current_user.todos
+    end
+
+    if params[:filter] == 'completed'
+      @todos = todos_scope.where(status: true).order(due_date: :desc)
+    else
+      @todos = todos_scope.order(status: :asc, due_date: :asc)
     end
   end
 
@@ -30,10 +36,21 @@ class TodosController < ApplicationController
     redirect_to todos_path, status: :see_other, notice: "To-Do '#{todo_name}'was deleted" # can be removed, if not wanted
   end
 
+# as of now, not used in our app
+
+# def completed
+#   if params[:journal_id]
+#     @journal = current_user.journals.find(params[:journal_id])
+#     @todos = @journal.todos.where(status: true).order(due_date: :desc)
+#   else
+#     @todos = current_user.todos.where(status: true).order(due_date: :desc)
+#   end
+# end
+
   private
 
   def set_todo
-    @todo = Todo.find(params[:id])
+  @todo = current_user.todos.find(params[:id])
   end
 
   def todo_params

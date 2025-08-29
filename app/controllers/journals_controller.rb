@@ -20,7 +20,7 @@ class JournalsController < ApplicationController
 
     @journal.user = current_user
     if @journal.save
-      redirect_to todo_brief_journal_path(@journal), notice: "Journal created successfully."
+      redirect_to todos_path(journal_id: @journal.id), notice: "Journal created successfully."
     else
       render :new
     end

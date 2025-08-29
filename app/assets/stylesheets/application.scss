@@ -10,6 +10,41 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+// @import "pages/journals";
+// @import "pages/backgrounds";
+
+// Keep vertical pan; let JS handle horizontal swipe
+[data-controller="swipe"] {
+  touch-action: pan-y;
+}
+
+
+@keyframes rotate-in {
+  from {
+    transform: rotate3d(0, -1, 0, 90deg);
+    opacity: 0;
+  }
+}
+
+@keyframes rotate-out {
+  to {
+    transform: rotate3d(0, 1, 0, 90deg);
+    opacity: 0;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 2s;
+}
+
+::view-transition-old(root) {
+  animation: 90ms cubic-bezier(0.4, 0, 1, 1) both rotate-out;
+}
+
+::view-transition-new(root) {
+  animation: 210ms cubic-bezier(0, 0, 0.2, 1) 90ms both rotate-in;
+}
 
 .custom-container {
   display: flex;
