@@ -1,19 +1,21 @@
+<% content_for :body_class, "crumbled-paper" %>
+
 <h1> Edit Your To-Do's</h1>
 
 <%= form_with(model: @todo) do |form| %>
-  <div>
+  <div class="user-content">
     <%= form.label :title %>
-    <%= form.text_field :title %>
+    <%= form.text_field :title, class: "user-content"  %>
   </div>
 
-  <div>
+  <div class="user-content">
     <%= form.label :description %>
-    <%= form.text_area :description %>
+    <%= form.text_area :description, class: "user-content"  %>
   </div>
 
-  <div>
+  <div class="user-content">
     <%= form.label :due_date %>
-    <%= form.date_field :due_date %>
+    <%= form.date_field :due_date, class: "user-content"  %>
   </div>
 
   <div>
@@ -21,4 +23,4 @@
   </div>
 <% end %>
 
-<%= link_to "Back to my To Do List", todos_path %>
+<%= link_to "Back to my To Do List", todos_path, class: "ai-output"  %>

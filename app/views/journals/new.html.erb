@@ -5,7 +5,7 @@
 <div class="journal-new-page"
      data-controller="swipe"
      data-swipe-right-url-value="<%= root_path %>">
-  <h1>a penny for your thought...</h1>
+  <h1 class="special-headline">a penny for your thought...</h1>
 
   <div class="journal-form-wrapper">
     <%= simple_form_for @journal, html: { class: "journal-form" } do |f| %>
@@ -17,7 +17,7 @@
                   as: :text,
                   label: false,
                   placeholder: "What's on your mind?",
-                  input_html: { class: "journal-input" } %>
+                  input_html: { class: "journal-input user-content" } %>
 
       <%= f.button :submit, ">", class: "button-swipe right" %>
     <% end %>
