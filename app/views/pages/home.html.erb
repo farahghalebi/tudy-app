@@ -7,5 +7,10 @@
 <div class="journal-new-page">
   <h1>Tudy...</h1>
   <p>... helps you TODO things smarter!</p>
-  <%= link_to ">", new_journal_path, class: "button-swipe right" %>
+
+  <% if params[:journal_id] %>
+    <%= link_to ">", journal_path(params[:journal_id]), class: "button-swipe right" %>
+  <% else %>
+    <%= link_to ">", new_journal_path, class: "button-swipe right" %>
+  <% end %>
 </div>
