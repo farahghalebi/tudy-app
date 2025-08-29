@@ -9,15 +9,15 @@
   <h1><%= @journal.created_at.strftime("%B %d, %Y") %></h1>
   <div class="journal-form-wrapper">
     <h3><%= @journal.title %></h3>
-    <p><%= @journal.content %></p>
+    <p class="user-content"><%= @journal.content %></p>
     <p>Journal Summary:</p>
-    <p>
+    <p class="ai-output">
       <% if @journal.summary.present? %>
           <%= @journal.summary %>
       <% end %>
     </p>
     <p>Tags:</p>
-    <ul class="list-unstyled">
+    <ul class="list-unstyled ai-output">
       <% @journal.tags.each do |tag| %>
           <li># <%= tag.name %> - <%= tag.content %></li>
       <% end %>

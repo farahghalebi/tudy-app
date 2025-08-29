@@ -1,0 +1,32 @@
+
+// app/assets/stylesheets/components/_typography.scss
+
+//AI-generated handwriting font to all headers
+h1, h2, h3, h4, h5, h6 {
+  font-family: $journal-ai-typewriter-body;
+  color: $fountain-pen-black;
+}
+
+h1 {
+  font-size: 1.5rem;
+}
+
+// Special headlines
+.special-headline {
+  font-family: $journal-ai-handwritten-h1;
+  color: $ballpoint-pen-blue;
+}
+
+// AI typewriter font for AI output, buttons, links...
+.ai-output, .button-swipe, .btn, a {
+  font-family: $journal-ai-typewriter-body;
+  font-size: 0.8rem;
+  color: $fountain-pen-black;
+}
+
+// handwriting font to user-generated content
+.user-content {
+  font-family: $journal-user-body;
+  font-size: 1.5rem;
+  color: $ballpoint-pen-blue;
+}
