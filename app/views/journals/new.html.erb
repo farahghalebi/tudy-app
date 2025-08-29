@@ -1,5 +1,7 @@
 <% content_for :body_class, "crumbled-paper" %>
 
+<% older_journal = Journal.all.order(created_at: :desc).first %>
+
 <div class="journal-new-page"
      data-controller="swipe"
      data-swipe-right-url-value="<%= root_path %>">
@@ -7,9 +9,22 @@
 
   <div class="journal-form-wrapper">
     <%= simple_form_for @journal, html: { class: "journal-form" } do |f| %>
-      <%= f.input :content, as: :text, label: false, placeholder: "What's on your mind?", input_html: { class: "journal-input" } %>
-      <!-- removed the right button -->
 
+      <%# How can we make the Submit button mandatory, i.e. only if input is not empty? %>
+      <%= f.error_notification %>
+
+      <%= f.input :content,
+                  as: :text,
+                  label: false,
+                  placeholder: "What's on your mind?",
+                  input_html: { class: "journal-input" } %>
+
+      <%= f.button :submit, ">", class: "button-swipe right" %>
     <% end %>
   </div>
+
+  <% if older_journal %>
+    <%= link_to "V", journal_path(older_journal), class: "button-swipe down" %>
+  <% end %>
+
 </div>
