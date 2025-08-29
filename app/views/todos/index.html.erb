@@ -5,12 +5,17 @@
     <h1>My To-Do List</h1>
   <% end %>
 
+  <div>
+    <%= link_to "All", todos_path(journal_id: @journal), class: "btn" %>
+    <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "btn" %>
+  </div>
+
 <ul class="list-unstyled">
   <%= render @todos %>
 </ul>
 
-<% if params[:journal_id].present? %>
-  <%= link_to "<", todo_brief_journal_path(params[:journal_id]) %>
-<% else %>
-  <%= link_to "< Back", root_path %>
+<% if @journal %>
+<%= link_to "<", journal_path(@journal), class: "button-swipe left" %>
+<%= link_to "v", todos_path, class: "button-swipe down" %>
+  <!--currently dead end need to find a way to go back to journal to do's-->
 <% end %>
