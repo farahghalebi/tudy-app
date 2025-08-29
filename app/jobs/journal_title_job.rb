@@ -7,5 +7,6 @@ class JournalTitleJob < ApplicationJob
     journal.title = RubyLLM.chat.with_instructions(journal_app_prompt).ask("#{title_prompt} for this journal entry: #{journal.content}").content
     puts "🐰🐰🐰 Title Job DONE 🐰🐰🐰"
     puts journal.title
+    journal.save
   end
 end
