@@ -1,5 +1,9 @@
 <!--app/view/todos/index.html.erb-->
-<div class="todos-container">
+
+<!-- this is the page after new journal entry- -->
+<div  id="todo-container" data-controller="swipe"
+    data-swipe-right-url-value="<%=new_journal_path(@journal)%>">
+
 <% if @journal %>
   <h1><%= @journal.title %></h1>
 <% else %>

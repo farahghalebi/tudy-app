@@ -6,9 +6,14 @@ class JournalsController < ApplicationController
   TITLE_PROMT = "create a Title (2-4 words) capturing the day"
   SUMMARY_PROMT = "create a Summary (1-2 sentences) reflective and personal"
   TAGS_PROMT = "create 2-4 hashtags with super short summaries (example: #family - called mum, #work - need more focus, #health - did yoga, ...).
-  As a valid JSON following this pattern: [{name: 'family', content: 'called mum'},{name: 'work', content: 'need more focus'},{name: 'health', content: 'did yoga'}]"
-  TODOS_PROMT = " create a To-Do list (prioritized, concise, with emojis) with a title (1-3 words), and a super short description (1-7 words) that are from the journal.
-  As a valid JSON following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day'}]"
+                As a valid JSON following this pattern: [{name: 'family', content: 'called mum'},{name: 'work', content: 'need more focus'},{name: 'health', content: 'did yoga'}]"
+  TODOS_PROMT = " I  will write down my journal. From it, create a to-do list in valid JSON format.
+                Instructions:
+                Extract only actionable tasks.
+                Each task must include:
+                title: 1-3 words, concise
+                description: short, actionable explanation
+                Output only valid JSON (no extra text), following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day and finally give them back in order'}]"
 
   def new
     @journal = Journal.new
@@ -17,17 +22,24 @@ class JournalsController < ApplicationController
   # Send Journal Input to AI and create Journal Entry in DB
   def create
     @journal = Journal.new(journal_params)
+    @journal.user = current_user
+
+    # Don’t call the LLM if the basic content is invalid
+    unless @journal.valid?
+      render :new, status: :unprocessable_entity
+      return
+    end
 
     # Title & Summary -----------------------------------
     @journal.title = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TITLE_PROMT} for this journal entry: #{@journal.content}").content
     @journal.summary = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{SUMMARY_PROMT} for this journal entry: #{@journal.content}").content
 
-    @journal.user = current_user
     if @journal.save
       redirect_to todos_path(journal_id: @journal.id), notice: "Journal created successfully."
     else
       render :new
     end
+
 
     # Tags  -------------------------
     @tags_response = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TAGS_PROMT} for this journal entry: #{@journal.content}").content
