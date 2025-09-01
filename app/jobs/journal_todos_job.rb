@@ -4,7 +4,7 @@ class JournalTodosJob < ApplicationJob
   def perform(journal, journal_app_prompt, todos_prompt)
     # Do something later
     puts "🐰🐰🐰 Performing TODOS Job 🐰🐰🐰"
-    todos_response = RubyLLM.chat.with_instructions(journal_app_prompt).ask("#{todos_prompt} for this journal entry: #{journal.content}").content
+    todos_response = RubyLLM.chat.with_instructions(journal_app_prompt).ask("#{todos_prompt} #{journal.content}").content
     todos_json = JSON.parse(todos_response)
 
     todos_json.each do |todo_json|
@@ -14,7 +14,7 @@ class JournalTodosJob < ApplicationJob
       todo.status = false
       todo.journal_id = journal.id
       todo.user_id = journal.user_id
-      todo.save                       
+      todo.save
       puts "🐰🐰🐰 TODO: #{todo.title} 🐰🐰🐰"
     end
 

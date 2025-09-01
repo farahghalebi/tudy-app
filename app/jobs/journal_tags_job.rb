@@ -6,7 +6,7 @@ class JournalTagsJob < ApplicationJob
   def perform(journal, journal_app_prompt, tags_prompt)
     # Do something later
     puts "🐰🐰🐰 Performing TAGS Job 🐰🐰🐰"
-    tags_response = RubyLLM.chat.with_instructions(journal_app_prompt).ask("#{tags_prompt} for this journal entry: #{journal.content}").content
+    tags_response = RubyLLM.chat.with_instructions(journal_app_prompt).ask("#{tags_prompt} #{journal.content}").content
     tags_json = JSON.parse(tags_response)
 
     tags_json.each do |tag_json|
