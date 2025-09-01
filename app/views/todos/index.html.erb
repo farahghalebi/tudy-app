@@ -1,4 +1,9 @@
 <!--app/view/todos/index.html.erb-->
+<!--app/view/todos/ml.erb-->
+<!-- this is the page after new journal entry- -->
+<div  id="todo-container" data-controller="swipe"
+    data-swipe-right-url-value="<%=new_journal_path(@journal)%>">
+
 <% if @journal %>
   <h1><%= @journal.title %></h1>
 <% else %>
@@ -19,3 +24,4 @@
   <%= link_to "v", todos_path, class: "button-swipe down" %>
   <!--currently dead end need to find a way to go back to journal to do's-->
 <% end %>
+</div>
