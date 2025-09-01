@@ -5,8 +5,9 @@ class JournalsController < ApplicationController
   JOURNAL_APP_PROMT = "You are a personal journaling and to-do assistant."
   TITLE_PROMT = "Create a title (2-4 words) capturing the journal entry"
   SUMMARY_PROMT = "Create a short summary (1-2 sentences) reflecting the journal entry"
-  TAGS_PROMT = "Create 2-4 hashtags with super short summaries (example: #family - called mum, #work - need more focus, #health - did yoga, ...).
-                As a valid JSON following this pattern: [{name: 'family', content: 'called mum'},{name: 'work', content: 'need more focus'},{name: 'health', content: 'did yoga'}]"
+  TAGS_PROMT = "Write 2–4 hashtags (e.g. Life, Work, Family, Love, ...)
+                With very short content summaries extracted from the journal.
+                As valid JSON in this format: [{name: 'tag', content: 'summary'}]"
   TODOS_PROMT = "From my journal, extract actionable tasks into valid JSON. Each task must have:
                 title: 1-3 words, concise
                 description: extract a short text from journal
