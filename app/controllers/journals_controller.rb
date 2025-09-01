@@ -30,10 +30,6 @@ class JournalsController < ApplicationController
       return
     end
 
-    # Title & Summary -----------------------------------
-    @journal.title = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TITLE_PROMT} for this journal entry: #{@journal.content}").content
-    @journal.summary = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{SUMMARY_PROMT} for this journal entry: #{@journal.content}").content
-
     if @journal.save
       redirect_to todos_path(journal_id: @journal.id), notice: "Journal created successfully."
     else
@@ -41,31 +37,18 @@ class JournalsController < ApplicationController
     end
 
 
-    # Tags  -------------------------
-    @tags_response = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TAGS_PROMT} for this journal entry: #{@journal.content}").content
-    @tags_json = JSON.parse(@tags_response)
+    # Title -------------------------------------
+    JournalTitleJob.perform_later(@journal, JOURNAL_APP_PROMT, TITLE_PROMT)
 
-    @tags_json.each do |tag|
-      @tag = Tag.new
-      @tag.name = tag["name"]
-      @tag.content = tag["content"]
-      @tag.journal_id = @journal.id
-      @tag.save                           # ??? Should it have a safety: when save doesnt work ???
-    end
+    # Summary -----------------------------------
+    JournalSummaryJob.perform_later(@journal, JOURNAL_APP_PROMT, SUMMARY_PROMT)
 
-    # TODO_brief - WIP (@David) ----------------------
-    @todos_response = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TODOS_PROMT} for this journal entry: #{@journal.content}").content
-    @todos_json = JSON.parse(@todos_response)
+    # Tags  -------------------------------------
+    JournalTagsJob.perform_later(@journal, JOURNAL_APP_PROMT, TAGS_PROMT)
 
-    @todos_json.each do |todo|
-      @todo = Todo.new
-      @todo.title = todo["title"]
-      @todo.description = todo["description"]
-      @todo.status = false
-      @todo.journal_id = @journal.id
-      @todo.user_id = @journal.user_id
-      @todo.save                        # ??? Should it have a safety: when save doesnt work ???
-    end
+    # TODO_brief --------------------------------
+    JournalTodosJob.perform_later(@journal, JOURNAL_APP_PROMT, TODOS_PROMT)
+
   end
 
   def show
