@@ -1,3 +1,5 @@
+<%= turbo_stream_from "journal_stream" %>
+
 <!--app/view/todos/index.html.erb-->
 <!--app/view/todos/ml.erb-->
 <!-- this is the page after new journal entry- -->
@@ -5,7 +7,7 @@
     data-swipe-right-url-value="<%=new_journal_path(@journal)%>">
 
 <% if @journal %>
-  <h1><%= @journal.title %></h1>
+  <h1 id="journal-title"><%= @journal.title %></h1>
 <% else %>
   <h1>My To-Do List</h1>
 <% end %>
