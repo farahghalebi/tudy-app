@@ -27,9 +27,11 @@ export default class extends Controller {
       this.toggleSubmitButton()
     }
 
+
     document.addEventListener("touchstart", this._onStart, { passive: true })
     document.addEventListener("touchmove", this._onMove, { passive: false })
     document.addEventListener("touchend", this._onEnd, { passive: true })
+
   }
 
   disconnect() {
@@ -48,6 +50,7 @@ export default class extends Controller {
     const t = e.changedTouches[0]
     this._sx = t.pageX; this._sy = t.pageY; this._t0 = Date.now()
     this._locked = null
+    console.log("started")
   }
 
   _onMove(e) {
@@ -60,7 +63,9 @@ export default class extends Controller {
     }
 
     if (this._locked === "x") e.preventDefault()
+  console.log("continue working")
   }
+
 
   _onEnd(e) {
     const t = e.changedTouches[0]
@@ -79,6 +84,7 @@ export default class extends Controller {
     } else if (vertical) {
       if (dy < 0) this._go("up")
       if (dy > 0) this._go("down")
+  console.log("blabla")
     }
   }
 
@@ -95,7 +101,10 @@ export default class extends Controller {
     } else if (dir === "up") {
       if (this.hasUpUrlValue) return vt(() => Turbo.visit(this.upUrlValue))
     } else if (dir === "down") {
-      if (this.hasDownUrlValue) return vt(() => Turbo.visit(this.downUrlValue))
+
+     if (this.hasDownUrlValue)  return vt(() => Turbo.visit(this.downUrlValue))
+    console.log("i dont know what i writen here")
+
     }
   }
 }
