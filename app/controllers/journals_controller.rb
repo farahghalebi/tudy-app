@@ -25,7 +25,6 @@ class JournalsController < ApplicationController
       return
     end
 
-    
     # Title & Summary -----------------------------------
     @journal.title = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TITLE_PROMT} for this journal entry: #{@journal.content}").content
     @journal.summary = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{SUMMARY_PROMT} for this journal entry: #{@journal.content}").content
