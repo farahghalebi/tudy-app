@@ -17,17 +17,25 @@ class JournalsController < ApplicationController
   # Send Journal Input to AI and create Journal Entry in DB
   def create
     @journal = Journal.new(journal_params)
+    @journal.user = current_user
 
+    # Don’t call the LLM if the basic content is invalid
+    unless @journal.valid?
+      render :new, status: :unprocessable_entity
+      return
+    end
+
+    
     # Title & Summary -----------------------------------
     @journal.title = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TITLE_PROMT} for this journal entry: #{@journal.content}").content
     @journal.summary = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{SUMMARY_PROMT} for this journal entry: #{@journal.content}").content
 
-    @journal.user = current_user
     if @journal.save
       redirect_to todos_path(journal_id: @journal.id), notice: "Journal created successfully."
     else
       render :new
     end
+
 
     # Tags  -------------------------
     @tags_response = RubyLLM.chat.with_instructions(JOURNAL_APP_PROMT).ask("#{TAGS_PROMT} for this journal entry: #{@journal.content}").content
