@@ -1,4 +1,5 @@
 <!--app/view/todos/index.html.erb-->
+<div class="todos-container">
 <% if @journal %>
   <h1><%= @journal.title %></h1>
 <% else %>
@@ -14,8 +15,17 @@
   <%= render @todos %>
 </ul>
 
+<div data-controller="todo">
+  <button data-action="click->todo#toggleForm">➕</button>
+
+  <div id="new_todo_form" data-todo-target="form" style="display:none;">
+    <%= render "form", todo: @todo, url: @journal ? journal_todos_path(@journal) : todos_path %>
+  </div>
+</div>
+
 <% if @journal %>
   <%= link_to "<", journal_path(@journal), class: "button-swipe left" %>
   <%= link_to "v", todos_path, class: "button-swipe down" %>
   <!--currently dead end need to find a way to go back to journal to do's-->
 <% end %>
+</div>

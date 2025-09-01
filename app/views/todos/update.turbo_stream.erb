@@ -1,0 +1,5 @@
+<!--app/views/update.turbo_stream.erb-->
+
+<%= turbo_stream.replace @todo do %>
+  <%= render @todo %>
+<% end %>

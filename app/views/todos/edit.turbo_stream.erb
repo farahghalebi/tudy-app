@@ -1,0 +1,7 @@
+<!--app/views/todos/edit.turbo_stream.erb-->
+
+<%= turbo_stream.replace @todo do %>
+    <li id="<%= dom_id(@todo) %>">
+    <%= render "form", todo: @todo, url: @journal ? journal_todo_path(@journal, @todo) : todo_path(@todo) %>
+  </li>
+<% end %>

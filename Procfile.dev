@@ -1,0 +1,2 @@
+web: rails server
+js: tail -f /dev/null
