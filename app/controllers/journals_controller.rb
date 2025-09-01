@@ -6,15 +6,14 @@ class JournalsController < ApplicationController
   TITLE_PROMT = "create a Title (2-4 words) capturing the day"
   SUMMARY_PROMT = "create a Summary (1-2 sentences) reflective and personal"
   TAGS_PROMT = "create 2-4 hashtags with super short summaries (example: #family - called mum, #work - need more focus, #health - did yoga, ...).
-  As a valid JSON following this pattern: [{name: 'family', content: 'called mum'},{name: 'work', content: 'need more focus'},{name: 'health', content: 'did yoga'}]"
+                As a valid JSON following this pattern: [{name: 'family', content: 'called mum'},{name: 'work', content: 'need more focus'},{name: 'health', content: 'did yoga'}]"
   TODOS_PROMT = " I  will write down my journal. From it, create a to-do list in valid JSON format.
-Instructions:
-Ignore emotions, extract only actionable tasks.
-Each task must include:
-title: 1-3 words, concise, with an emoji if possible
-description: short, actionable explanation
-Output only valid JSON (no extra text).
-following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day and finally give them back in order'"
+                Instructions:
+                Extract only actionable tasks.
+                Each task must include:
+                title: 1-3 words, concise
+                description: short, actionable explanation
+                Output only valid JSON (no extra text), following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day and finally give them back in order'}]"
 
   def new
     @journal = Journal.new
