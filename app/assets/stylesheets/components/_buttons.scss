@@ -3,7 +3,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  // z-index: 1000;
 
   background-color: rgba(255, 255, 255, 0.377);
   opacity: 0.0;
@@ -22,7 +22,7 @@
     opacity: 0.5;
 
     .button-swipe {
-      pointer-events: auto; // enable clicks when hovering container
+      pointer-events: auto;
     }
   }
 
@@ -49,7 +49,7 @@
   &.up {
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 80vw;
     height: 10vh;
   }
 
