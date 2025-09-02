@@ -53,6 +53,11 @@ class JournalsController < ApplicationController
     @journal = Journal.find(params[:id])
   end
 
+  def index
+    @journals = current_user.journals
+  end
+
+  # Can be deleted ???
   def todo_brief
     @journal = Journal.find(params[:id])
   end

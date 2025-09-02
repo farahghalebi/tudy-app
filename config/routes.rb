@@ -12,9 +12,8 @@ Rails.application.routes.draw do
   # to does WITHOUT journal
   resources :todos, only: [:index, :new, :create, :edit, :update, :destroy]
 
-  # Defines the root path route ("/")
   # to dos through journal entries
-  resources :journals, only: [:new, :create, :show] do
+  resources :journals, only: [:new, :create, :show, :index] do
     resources :todos, only: [:index, :new, :create, :edit, :update, :destroy]
   end
 end
