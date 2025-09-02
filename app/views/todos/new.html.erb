@@ -1,0 +1,9 @@
+<!--app/views/todos/new.html.erb-->
+
+<% content_for :body_class, "crumbled-paper" %>
+
+<h1 class="special-headline">Create a New To-Do</h1>
+
+<%= render "form", todo: @todo, url: @journal ? journal_todos_path(@journal) : todos_path %>
+
+<%= link_to "Back to To Do List", todos_path, class: "ai-output" %>
