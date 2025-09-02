@@ -5,24 +5,36 @@
 <% newer_journal = Journal.where("created_at > ?", @journal.created_at).order(created_at: :asc).first %>
 
 <div class="journal-new-page">
-  <h1><%= @journal.created_at.strftime("%B %d, %Y") %></h1>
+  <div class="typewriter journal-date p-5">
+    <%# AI Generated Stuff to Toggle %>
+    <div data-controller="journal-toggle">
+      <div id="toggler" data-action="click->journal-toggle#toggle", class="typewriter my-5">
+        <%= @journal.created_at.strftime("%B %d, %Y") %> (more)
+      </div>
+
+      <div id="toggle-box" data-journal-toggle-target="box" class="handwritten-ai hidden">
+
+        <p><strong><%= @journal.title %>:</strong> <%= @journal.summary %></p>
+
+        <% if @journal.tags.any? %>
+          <ul class="list-unstyled">
+            <% @journal.tags.each do |tag| %>
+              <li><p>#<%= tag.name %> - <%= tag.content %></p></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
 
   <div class="journal-form-wrapper">
-    <h3><%= @journal.title %></h3>
-    <p><%= @journal.content %></p>
 
-    <% if @journal.summary.present? %>
-      <p><strong>Journal Summary:</strong> <%= @journal.summary %></p>
-    <% end %>
+    <div class="handwritten-user">
+      <p><%= @journal.content %></p>
+    </div>
 
-    <% if @journal.tags.any? %>
-      <p><strong>Tags:</strong></p>
-      <ul class="list-unstyled">
-        <% @journal.tags.each do |tag| %>
-          <li>#<%= tag.name %> - <%= tag.content %></li>
-        <% end %>
-      </ul>
-    <% end %>
 
     <%# Swipe Buttons %>
     <div class="swipe-button-box left">
