@@ -97,28 +97,35 @@ If no tasks are completed, return:
   def auto_complete_todos(journal)
     begin
       # Get incomplete todos for this user
-      incomplete_todos = journal.user.todos.where(completed: false)
+      incomplete_todos = journal.user.todos.where(status: false)
       return if incomplete_todos.empty?
 
       # Build context with journal and existing todos
       context = build_completion_context(journal, incomplete_todos)
+      p "🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰"
+      p context
 
       # Ask AI which todos are completed
-      response = call_ai_api(JOURNAL_APP_PROMT, COMPLETED_TASKS_PROMT, context)
+       # RubyLLM.chat.with_instructions(journal_app_prompt).ask("#{title_prompt} #{journal.content}").content
+
+      response =  RubyLLM.chat.with_instructions(COMPLETED_TASKS_PROMT).ask(context).content
       return unless response.present?
+      p "🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰"
+      p response
 
       # Parse AI response and mark todos as completed
       parsed_response = JSON.parse(response)
       completed_ids = parsed_response["completed_todo_ids"] || []
+      p parsed_response
 
       if completed_ids.any?
         # Find and mark todos as completed
-        todos_to_complete = journal.user.todos.where(id: completed_ids, completed: false)
+        todos_to_complete = journal.user.todos.where(id: completed_ids, status: false)
         todos_to_complete.find_each do |todo|
           todo.update!(
-            completed: true,
-            completed_at: Time.current,
-            auto_completed: true
+            status: true,
+            # completed_at: Time.current,
+           #  auto_completed: true
           )
         end
 
