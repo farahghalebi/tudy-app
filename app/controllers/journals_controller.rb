@@ -38,14 +38,14 @@ class JournalsController < ApplicationController
     # Title -------------------------------------
     JournalTitleJob.perform_later(@journal, JOURNAL_APP_PROMT, TITLE_PROMT)
 
+    # TODO_brief --------------------------------
+    JournalTodosJob.perform_later(@journal, JOURNAL_APP_PROMT, TODOS_PROMT)
+
     # Summary -----------------------------------
     JournalSummaryJob.perform_later(@journal, JOURNAL_APP_PROMT, SUMMARY_PROMT)
 
     # Tags  -------------------------------------
     JournalTagsJob.perform_later(@journal, JOURNAL_APP_PROMT, TAGS_PROMT)
-
-    # TODO_brief --------------------------------
-    JournalTodosJob.perform_later(@journal, JOURNAL_APP_PROMT, TODOS_PROMT)
 
   end
 
