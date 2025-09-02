@@ -8,15 +8,15 @@
       <%= todo.title %>
     </span>
 
-    <div class="todo-item-actions align-with-first-line">
+    <div class="todo-item-actions">
     <% if @journal %>
-      <%= link_to "✏️", edit_journal_todo_path(@journal, todo), data: { turbo_stream: true }, class: "ai-output" %>
+      <%= link_to "✏️", edit_journal_todo_path(@journal, todo), data: { turbo_stream: true }, class: "ai-output align-with-first-line" %>
       <%= link_to "❌", journal_todo_path(@journal, todo),
-                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "ai-output" %>
+                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "ai-output align-with-first-line" %>
     <% else %>
-      <%= link_to "✏️", edit_todo_path(todo), data: { turbo_stream: true }, class: "ai-output" %>
+      <%= link_to "✏️", edit_todo_path(todo), data: { turbo_stream: true }, class: "ai-output align-with-first-line" %>
       <%= link_to "❌", todo_path(todo),
-                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "ai-output" %>
+                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "ai-output align-with-first-line" %>
     <% end %>
     </div>
 </li>
