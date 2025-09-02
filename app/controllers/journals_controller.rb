@@ -12,6 +12,31 @@ class JournalsController < ApplicationController
                 title: 1-3 words, concise
                 description: extract a short text from journal
                 Output only valid JSON (no extra text), following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day and finally give them back in order'}]"
+  # autocomplete prompt
+  COMPLETED_TASKS_PROMT = "You are analyzing a journal entry to identify completed tasks from an existing to-do list.
+
+INSTRUCTIONS:
+1. Read the journal entry carefully
+2. Look for activities that were ACTUALLY COMPLETED (past tense actions)
+3. Match these activities with tasks from the existing to-do list
+4. Only include tasks that have clear evidence of completion
+
+COMPLETION INDICATORS:
+- Past tense verbs: 'I did', 'I finished', 'I completed', 'I went', 'I bought', 'I called', 'I sent'
+- Explicit statements: 'done', 'finished with', 'accomplished'
+- Specific results: 'got the groceries', 'finished the report', 'met with John'
+
+IMPORTANT RULES:
+- Only match tasks that are clearly completed in the journal
+- Be conservative - if unsure, don't mark as complete
+- Consider partial matches (e.g., 'bought groceries' matches todo 'groceries')
+- Ignore future plans or intentions
+
+Return ONLY valid JSON in this exact format:
+{\"completed_todo_ids\": [1, 3, 5]}
+
+If no tasks are completed, return:
+{\"completed_todo_ids\": []}"
 
   def new
     @journal = Journal.new
