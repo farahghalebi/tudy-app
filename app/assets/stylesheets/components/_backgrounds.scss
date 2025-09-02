@@ -1,30 +1,48 @@
 // app/assets/stylesheets/backgrounds/_backgrounds.scss
 //background --> 'container mt-3' in applications.html.erb for now adjusted
 
+// app/assets/stylesheets/components/_backgrounds.scss
+
+// Main background styles for the body
+body {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-color: $eggshell;
+}
+
 .crumbled-paper {
-  // bg-image needs to be uploaded to cloudinary
-  background-image: url('https://images.unsplash.com/photo-1586075010923-2dd4570fb338?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-  background-size: cover;
-  background-position: center;
-  min-height: 100vh;
+  // Use a pseudo-element for the repeating texture
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
 
+    // Use a high-resolution, seamlessly repeating image here
+    background-image: url("white-crumpled-paper-texture-background.jpg");
+    background-repeat: repeat;
+
+    // Optional filter to change the look
+    filter: sepia(10%);
+  }
 }
 
+// Class for a lined paper effect using CSS gradients
 .lined-paper {
-  // currently without the lines
-  .crumbled-paper {
-  background-color: #fcf8e3; /* Warm, creamy paper base */
+  background-color: $eggshell;
   background-image:
-    // Create soft, random-looking highlights
-    radial-gradient(ellipse at 75% 25%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
-    radial-gradient(ellipse at 25% 75%, rgba(255, 255, 255, 0.5) 0%, transparent 60%),
-    // Create subtle, dark shadows for the creases
-    radial-gradient(ellipse at 20% 80%, rgba(0, 0, 0, 0.1) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(0, 0, 0, 0.1) 0%, transparent 50%);
+    // Create light blue lines that repeat vertically
+    linear-gradient(to bottom, transparent 85%, rgba(173, 216, 230, 0.8) 95%);
+  background-size: 100% 24px; /* The line spacing (e.g., 24px per line) */
   min-height: 100vh;
 }
-}
-
 .aquarell-paper {
-
+  background-image:
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.5) 0%, transparent 50%),
+    url("aquarell-paper-texture.jpg");
+  background-size: 100% 100%, cover;
 }
