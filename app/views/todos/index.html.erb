@@ -1,13 +1,11 @@
-<%= turbo_stream_from "journal_stream" %>
-
 <!--app/view/todos/index.html.erb-->
-
+<!--app/view/todos/ml.erb-->
 <!-- this is the page after new journal entry- -->
 <div  id="todo-container" data-controller="swipe"
     data-swipe-right-url-value="<%=new_journal_path(@journal)%>">
 
 <% if @journal %>
-  <h1 id="journal-title"><%= @journal.title %></h1>
+  <h1><%= @journal.title %></h1>
 <% else %>
   <h1>My To-Do List</h1>
 <% end %>
@@ -17,17 +15,9 @@
   <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "btn" %>
 </div>
 
-<ul id="todo-item" class="list-unstyled">
+<ul class="list-unstyled">
   <%= render @todos %>
 </ul>
-
-<div data-controller="todo">
-  <button data-action="click->todo#toggleForm">➕</button>
-
-  <div id="new_todo_form" data-todo-target="form" style="display:none;">
-    <%= render "form", todo: @todo, url: @journal ? journal_todos_path(@journal) : todos_path %>
-  </div>
-</div>
 
 <% if @journal %>
   <%= link_to "<", journal_path(@journal), class: "button-swipe left" %>
