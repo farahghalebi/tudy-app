@@ -8,12 +8,15 @@ class JournalsController < ApplicationController
   TAGS_PROMT = "Write 2–4 hashtags (e.g. Life, Work, Family, Love, ...)
                 With very short content summaries extracted from the journal.
                 As valid JSON in this format: [{name: 'tag', content: 'summary'}]"
-  #  this prompt will help me to define auto which task are done based on the entry
-  TODOS_AI_PROMT = "From my journal, extract actionable tasks into valid JSON. Each task must have:
+
+  TODOS_PROMT = "From my journal, extract actionable tasks into valid JSON. Each task must have:
                 title: 1-3 words, concise
                 description: extract a short text from journal
-                Output only valid JSON (no extra text), following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day and finally give them back in order'}]
-  COMPLETED_TASKS_PROMT = You are analyzing a journal entry to identify completed tasks from an existing to-do list.
+                Output only valid JSON (no extra text), following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day and finally give them back in order'}]"
+
+  # this prompt will help me to define auto which task are done based on the entry
+
+  COMPLETED_TASKS_PROMT = "You are analyzing a journal entry to identify completed tasks from an existing to-do list.
   INSTRUCTIONS:
 1. Read the journal entry carefully
 2. Look for activities that were ACTUALLY COMPLETED (past tense actions)
