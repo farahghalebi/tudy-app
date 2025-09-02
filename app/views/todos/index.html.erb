@@ -1,4 +1,5 @@
 <%= turbo_stream_from "journal_stream" %>
+<% content_for :body_class, "lined-paper" %>
 
 <!--app/view/todos/index.html.erb-->
 
@@ -7,12 +8,12 @@
     data-swipe-right-url-value="<%=new_journal_path(@journal)%>">
 
 <% if @journal %>
-  <h1 id="journal-title"><%= @journal.title %></h1>
+  <h1 id="journal-title" class="ai-output"><%= @journal.title %></h1>
 <% else %>
   <h1>My To-Do List</h1>
 <% end %>
 
-<div>
+<div class="ai-output">
   <%= link_to "All", todos_path(journal_id: @journal), class: "btn" %>
   <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "btn" %>
 </div>

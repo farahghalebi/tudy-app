@@ -23,7 +23,7 @@ class JournalTodosJob < ApplicationJob
 
         Turbo::StreamsChannel.broadcast_append_to(
           "journal_stream",
-          target: "todo-item",
+          target: "todos",
           partial: "todos/todo",
           locals: { todo: todo}
         )

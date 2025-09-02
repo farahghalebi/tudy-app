@@ -62,7 +62,7 @@ class TodosController < ApplicationController
   private
 
   def find_todos_scope
-    if params[:journal_id]
+    if params[:journal_id].present?
       @journal = current_user.journals.find(params[:journal_id])
       @journal.todos
     else
