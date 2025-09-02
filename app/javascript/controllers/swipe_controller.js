@@ -83,18 +83,19 @@ export default class extends Controller {
       // Prefer visiting configured URL; otherwise submit form
       console.log(formEl);
 
-      if (formEl) return vt(() => formEl.requestSubmit()) 
-      console.log("submitted right?")
+      // if (formEl) return vt(() => formEl.requestSubmit()) 
+      // console.log("submitted right?")
       if (this.hasRightUrlValue) return vt(() => Turbo.visit(this.rightUrlValue))
     } else if (dir === "left") {
       if (formEl) return vt(() => formEl.requestSubmit()) 
       console.log("submitted left?")
       if (this.hasLeftUrlValue)  return vt(() => Turbo.visit(this.leftUrlValue))
+     console.log("upp")
     } else if (dir === "up") {
       if (this.hasUpUrlValue)    return vt(() => Turbo.visit(this.upUrlValue))
     } else if (dir === "down") {
       if (this.hasDownUrlValue)  return vt(() => Turbo.visit(this.downUrlValue))
-      console.log("i dont know what i writen here")
+      console.log("down")
     }
   }
 }
