@@ -1,29 +1,35 @@
 <% content_for :body_class, "crumbled-paper" %>
 
 <% older_journal = Journal.all.order(created_at: :desc).first %>
+<% newer_journal = Journal.all.order(created_at: :desc).last %>
 
 <div class="journal-new-page"
      data-controller="swipe"
-     data-swipe-right-url-value="<%= root_path %>">
+     data-swipe-right-url-value="<%= root_path %>"
+     data-swipe-left-url-value="<%= todos_path %>"
+     data-swipe-up-url-value="<%= journal_path(older_journal) %>">
   <h1>a penny for your thought...</h1>
 
   <div class="journal-form-wrapper">
-    <%= simple_form_for @journal, html: { class: "journal-form" } do |f| %>
+    <%= simple_form_for @journal, html: { class: "journal-form", data: { action: "input->form-validation#toggleSubmitButton" } } do |f| %>
 
-      <%# How can we make the Submit button mandatory, i.e. only if input is not empty? %>
       <%= f.error_notification %>
 
       <%= f.input :content,
                   as: :text,
                   label: false,
                   placeholder: "What's on your mind?",
-                  input_html: { class: "journal-input" } %>
+                  input_html: { class: "journal-input", data: { "form-validation-target": "input" } } %>
 
-      <%= f.button :submit, ">", class: "button-swipe right" %>
+      <%= f.button :submit,
+                   ">",
+                   class: "button-swipe right",
+                   data: { "form-validation-target": "submit" } %>
     <% end %>
   </div>
 
   <% if older_journal %>
+    <%# This button is now redundant with the swipe functionality, but serves as a fallback %>
     <%= link_to "V", journal_path(older_journal), class: "button-swipe down" %>
   <% end %>
 
