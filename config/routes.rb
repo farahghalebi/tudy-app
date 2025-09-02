@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # to dos through journal entries
-  resources :journals, only: [:new, :create, :show] do
+  resources :journals, only: [:new, :create, :show, :index] do
     get 'todo_brief', on: :member
     resources :todos, only: [:index, :edit, :update, :destroy] do
       get 'completed', on: :collection
