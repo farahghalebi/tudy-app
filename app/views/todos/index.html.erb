@@ -17,7 +17,7 @@
   <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "btn" %>
 </div>
 
-<ul class="list-unstyled">
+<ul id="todo-item" class="list-unstyled">
   <%= render @todos %>
 </ul>
 
