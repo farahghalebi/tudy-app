@@ -4,21 +4,21 @@
   <%= hidden_field_tag :journal_id, params[:journal_id] %>
 
   <div class="user-content">
-    <%= form.label :title %>
+    <%= form.label :title, class: "ai-output" %>
     <%= form.text_field :title, class: "user-content" %>
   </div>
 
   <div class="user-content">
-    <%= form.label :description %>
+    <%= form.label :description, class: "ai-output" %>
     <%= form.text_area :description, class: "user-content" %>
   </div>
 
   <div class="user-content">
-    <%= form.label :due_date %>
+    <%= form.label :due_date, class: "ai-output" %>
     <%= form.date_field :due_date, class: "user-content" %>
   </div>
 
   <div>
-    <%= form.submit "Update", class: "btn" %>
+    <%= form.submit "Add", class: "btn" %>
   </div>
 <% end %>

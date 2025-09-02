@@ -1,14 +1,14 @@
 <!--app/views/todos/_todo.html.erb-->
 
 <li class="todo-item" id="<%= dom_id(todo) %>">
-    <%= form_with(model: todo, url: todo_path(todo), method: :patch, data: { turbo: true }) do |form| %>
+    <%= form_with(model: todo, url: todo_path(todo), method: :patch, data: { turbo: true }, class: "align-with-first-line") do |form| %>
       <%= form.check_box :status, onchange: "this.form.requestSubmit()" %>
     <% end %>
-    <span class="todo-title" data-controller="expand" data-action="click->expand#toggle" data-expand-target="content" data-expand-truncated-class="truncated">
+    <span class="todo-title user-content" data-controller="expand" data-action="click->expand#toggle" data-expand-target="content" data-expand-truncated-class="truncated">
       <%= todo.title %>
     </span>
 
-    <div class="todo-item-actions">
+    <div class="todo-item-actions align-with-first-line">
     <% if @journal %>
       <%= link_to "✏️", edit_journal_todo_path(@journal, todo), data: { turbo_stream: true }, class: "ai-output" %>
       <%= link_to "❌", journal_todo_path(@journal, todo),

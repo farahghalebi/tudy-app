@@ -18,19 +18,17 @@
   padding: 10px;
 }
 
-// .todo-item-content {
-//   display: flex;
-//   align-items: flex-start;
-//   flex-wrap: wrap;
-//   gap: 10px;
-//   flex-grow: 1;
-// }
+.align-with-first-line {
+  // Use a negative margin to pull the elements up, aligning them visually
+  margin-top: calc((1.5rem - 0.8rem) / 2);
+}
 
 .todo-item-actions {
   display: flex;
   gap: 10px;
   flex-shrink: 0;
   margin-left: auto;
+  @extend .align-with-first-line;
 }
 
 .todo-title {
