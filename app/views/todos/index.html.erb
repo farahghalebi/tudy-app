@@ -17,14 +17,14 @@
   <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "btn" %>
 </div>
 
-<ul id="todo-item" class="list-unstyled">
+<ul id="todos" class="list-unstyled">
   <%= render @todos %>
 </ul>
 
-<div data-controller="todo">
-  <button data-action="click->todo#toggleForm">➕</button>
+<div data-controller="toggle">
+  <button data-action="click->toggle#toggleForm">➕</button>
 
-  <div id="new_todo_form" data-todo-target="form" style="display:none;">
+  <div id="new_todo_form" data-toggle-target="form" style="display:none;">
     <%= render "form", todo: @todo, url: @journal ? journal_todos_path(@journal) : todos_path %>
   </div>
 </div>
