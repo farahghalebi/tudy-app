@@ -15,6 +15,8 @@ class TodosController < ApplicationController
 
   def create
     @todo = find_todos_scope.build(todo_params)
+    @todo.user = current_user
+    @todo.status = false
     if @todo.save
       respond_to do |format|
         format.html { redirect_to todos_path, notice: 'To-do was successfully created.' }
