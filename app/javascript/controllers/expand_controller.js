@@ -12,7 +12,7 @@ export default class extends Controller {
 
   checkTruncation() {
     const isTruncated = this.contentTarget.scrollHeight > this.contentTarget.clientHeight;
-    if (isTruncated) {
+    if (!isTruncated) {
       this.contentTarget.classList.add(this.truncatedClass);
     }
   }

@@ -1,6 +1,8 @@
 <!--app/views/todos/_form.html.erb-->
 
 <%= form_with(model: todo) do |form| %>
+  <%= hidden_field_tag :journal_id, params[:journal_id] %>
+
   <div class="user-content">
     <%= form.label :title %>
     <%= form.text_field :title, class: "user-content" %>
