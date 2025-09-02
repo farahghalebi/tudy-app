@@ -1,11 +1,22 @@
 <!--app/views/todos/_todo.html.erb-->
 
-<li id="<%= dom_id(todo) %>">
-  <%= form_with(model: todo, url: todo_path(todo), method: :patch, data: { turbo: true }) do |form| %>
-    <%= form.check_box :status, onchange: "this.form.requestSubmit()" %>
-  <% end %>
-  <%= todo.title %>
-  <%= link_to "✏️", edit_todo_path(todo) %>
-  <%= link_to "❌", todo_path(todo),
-              data: { turbo_method: :delete, turbo_confirm: "Are you sure?" } %>
+<li class="todo-item" id="<%= dom_id(todo) %>">
+    <%= form_with(model: todo, url: todo_path(todo), method: :patch, data: { turbo: true }) do |form| %>
+      <%= form.check_box :status, onchange: "this.form.requestSubmit()" %>
+    <% end %>
+    <span class="todo-title" data-controller="expand" data-action="click->expand#toggle" data-expand-target="content" data-expand-truncated-class="truncated">
+      <%= todo.title %>
+    </span>
+
+    <div class="todo-item-actions">
+    <% if @journal %>
+      <%= link_to "✏️", edit_journal_todo_path(@journal, todo), data: { turbo_stream: true }, class: "ai-output" %>
+      <%= link_to "❌", journal_todo_path(@journal, todo),
+                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "ai-output" %>
+    <% else %>
+      <%= link_to "✏️", edit_todo_path(todo), data: { turbo_stream: true }, class: "ai-output" %>
+      <%= link_to "❌", todo_path(todo),
+                  data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "ai-output" %>
+    <% end %>
+    </div>
 </li>

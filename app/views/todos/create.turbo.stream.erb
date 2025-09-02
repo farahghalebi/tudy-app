@@ -1,0 +1,6 @@
+<!--app/views/todos/create.turbo_stream.erb-->
+
+<%= turbo_stream.prepend "todos", @todo %>
+<%= turbo_stream.replace 'new_todo_form' do %>
+  <%= render "form", todo: Todo.new %>
+<% end %>
