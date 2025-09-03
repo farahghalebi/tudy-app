@@ -1,9 +1,7 @@
 <%= turbo_stream_from "journal_stream" %>
 <% content_for :body_class, "lined-paper" %>
 
-<!-- this is the page after new journal entry- -->
-
-
+<!-- Swiping actions -->
 <div  id="todo-container" data-controller="swipe"
     data-swipe-right-url-value="<%=new_journal_path(@journal)%>"
   <% if params[:back_journal_id].present? %>
@@ -12,10 +10,8 @@
 >
 
 <% if @journal %>
-  <!-- Element to contain animated typing -->
-  <span id="element"></span>
-
-  <h1 id="journal-title" class="ai-output"><%= @journal.title %></h1>
+  <!-- id="element" to contain animated typing -->
+  <h1 id="journal-title" class="ai-output"><span id="element"></span><%= @journal.title %></h1>
 <% else %>
   <h1>My To-Do List</h1>
 <% end %>
