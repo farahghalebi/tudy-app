@@ -1,7 +1,7 @@
 <% content_for :body_class, "crumbled-paper" %>
 
+<%# Previous journals %>
 <% older_journal = Journal.all.order(created_at: :desc).first %>
-<% newer_journal = Journal.all.order(created_at: :desc).last %>
 
 <div class="journal-new-page"
      data-controller="swipe"
@@ -21,18 +21,44 @@
                   placeholder: "What's on your mind?",
                   input_html: { class: "journal-input", data: { "form-validation-target": "input" } } %>
 
-      <%= f.button :submit,
-                   ">",
-                   class: "button-swipe right",
-                   data: { "form-validation-target": "submit" } %>
+      <div class="swipe-button-box right">
+        <%# ??? How can we style the right button - ideally like show page ??? %>
+        <%= f.button :submit,
+                    "TODOs",
+                    class: "button-swipe",
+                    data: { "form-validation-target": "submit" } %>
+      </div>
 
-      <%= f.input :file, as: :file, label: "Upload a file (PDF, image)" %>
+      <%= f.input :file,
+                  as: :file,
+                  label: false,
+                  input_html: {
+                    id: "journal_file_input",
+                    class: "d-none",
+                  }
+                  %>
+
+      <%# a label styled like a button with an icon %>
+      <div class="d-flex justify-content-end mt-2">
+        <label for="journal_file_input"
+              class="d-inline-flex align-items-center gap-2"
+              style="z-index: 1000; position: relative;">
+          <span class="fs-1">📎</span>
+        </label>
+      </div>
+
     <% end %>
   </div>
 
-  <% if older_journal %>
-    <%# This button is now redundant with the swipe functionality, but serves as a fallback %>
-    <%= link_to "V", journal_path(older_journal), class: "button-swipe down" %>
-  <% end %>
+    <%# Swipe Buttons %>
+    <div class="swipe-button-box left">
+      <%= link_to "Journals", root_path, class: "button-swipe" %>
+    </div>
+
+    <% if older_journal %>
+      <div class="swipe-button-box down">
+        <%= link_to "Next Journal", journal_path(older_journal), class: "button-swipe" %>
+      </div>
+    <% end %>
 
 </div>

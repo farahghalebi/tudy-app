@@ -6,7 +6,8 @@
   font-family: $journal-ai-handwritten-h1;
   color: $ballpoint-pen-blue;
   font-size: 2rem;
-  padding: 2rem 4rem 4rem 2rem; // top, right, bottom, left
+  padding: 2rem 0 4rem 0; // top, right, bottom, left
+  // padding: 2rem 4rem 4rem 2rem; // top, right, bottom, left
   text-align: center;
 }
 
@@ -20,6 +21,7 @@
 
 .journal-form .input {
   flex: 1;
+  padding: 0;
 }
 
 .journal-input {
@@ -36,12 +38,10 @@
   text-align: start;
   display: flex;
   align-items: flex-start;
-  min-height: 500px;
+  min-height: 50vh;
   border: none;
   outline: none;
-  padding: 2rem 1.5rem 1rem 2rem; // top, right, bottom, left
-  padding-top: 8px;
-  padding-bottom: 0;
+  padding: 0; // top, right, bottom, left
   line-height: normal;
   resize: vertical;
   overflow: auto;
