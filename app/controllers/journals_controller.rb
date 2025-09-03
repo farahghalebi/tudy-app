@@ -61,6 +61,7 @@ If no tasks are completed, return:
       render :new, status: :unprocessable_entity
     end
 
+
     # File Upload -----------------------------
     if @journal.file.attached?
       JournalFileJob.perform_later(@journal, JOURNAL_APP_PROMT, FILE_PROMT)
@@ -79,10 +80,10 @@ If no tasks are completed, return:
     @journals = current_user.journals
   end
 
-  # Can be deleted ???
-  def todo_brief
-    @journal = Journal.find(params[:id])
-  end
+  # i did comment these out to have cleaner controller
+  # def todo_brief
+  # @journal = Journal.find(params[:id])
+  # end
 
   private
 
@@ -96,9 +97,70 @@ If no tasks are completed, return:
     # Summary -----------------------------------
     JournalSummaryJob.perform_later(@journal, JOURNAL_APP_PROMT, SUMMARY_PROMT)
 
+    # Auto-complete existing todos
+    auto_complete_todos(@journal)
   end
 
   def journal_params
     params.require(:journal).permit(:content, :file)
+  end
+
+  # Auto-complete todos that are mentioned as done in the journal
+
+  def auto_complete_todos(journal)
+    begin
+      # Get incomplete todos for this user
+      incomplete_todos = journal.user.todos.where(status: false)
+      return if incomplete_todos.empty?
+
+      # Build context with journal and existing todos
+      context = build_completion_context(journal, incomplete_todos)
+      p "🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰"
+      p context
+
+      # Ask AI which todos are completed
+      # RubyLLM.chat.with_instructions(journal_app_prompt).ask("#{title_prompt} #{journal.content}").content
+
+      response = RubyLLM.chat.with_instructions(COMPLETED_TASKS_PROMT).ask(context).content
+      return unless response.present?
+
+      p "🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰"
+      p response
+
+      # Parse AI response and mark todos as completed
+      parsed_response = JSON.parse(response)
+      completed_ids = parsed_response["completed_todo_ids"] || []
+      p parsed_response
+
+      if completed_ids.any?
+        # Find and mark todos as completed
+        todos_to_complete = journal.user.todos.where(id: completed_ids, status: false)
+        todos_to_complete.find_each do |todo|
+          todo.update!(
+            status: true,
+            # completed_at: Time.current,
+            #  auto_completed: true
+          )
+        end
+
+        Rails.logger.info "Auto-completed #{todos_to_complete.count} todos for user #{journal.user.id}"
+      end
+    end
+  end
+
+  def build_completion_context(journal, todos)
+    todos_list = todos.map do |todo|
+      "ID: #{todo.id} | Title: #{todo.title} | Description: #{todo.description || 'No description'}"
+    end.join("\n")
+
+    context = <<~TEXT
+      JOURNAL ENTRY:
+      #{journal.content}
+
+      EXISTING TO-DO LIST:
+      #{todos_list}
+    TEXT
+
+    context
   end
 end
