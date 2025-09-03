@@ -5,15 +5,24 @@ class JournalsController < ApplicationController
   JOURNAL_APP_PROMT = "You are a personal journaling and to-do assistant."
   FILE_PROMT = "Extract the text from this file to create the journal entry.
                 Output only the text form file (no extra text)"
-  TITLE_PROMT = "Create a title (2-4 words) capturing the journal entry"
+  TITLE_PROMT = "TITLE_PROMT = "Generate a short, meaningful title (2–4 words) that captures the main theme or mood of the journal entry."
+"
   SUMMARY_PROMT = "Create a short summary (1-2 sentences) reflecting the journal entry"
   # TAGS_PROMT = "Write 2–4 hashtags (e.g. Life, Work, Family, Love, ...)
               #  With very short content summaries extracted from the journal.
               # As valid JSON in this format: [{name: 'tag', content: 'summary'}]"
-  TODOS_PROMT = "From my journal, extract actionable tasks into valid JSON. Each task must have:
-                title: 1-3 words, concise
-                description: extract a short text from journal
-                Output only valid JSON (no extra text), following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day and finally give them back in order'}]"
+  TODOS_PROMT = "From my journal, extract actionable tasks that are NOT already completed.
+
+INSTRUCTIONS:
+1. Focus only on plans, intentions, or actions that still need to be done (future or pending tasks).
+2. Do NOT create todos from activities already finished or written in the past tense.
+3. Ignore anything that clearly indicates completion (e.g., 'I did', 'I finished', 'I went', 'I bought').
+4. Keep todos concise and actionable.
+
+OUTPUT FORMAT:
+Return ONLY valid JSON, following this exact pattern:
+[{title: 'groceries', description: 'buy ingredients for dinner'},
+ {title: 'meditate', description: 'recover from hard work day'}]"
   # autocomplete prompt
   COMPLETED_TASKS_PROMT = "You are analyzing a journal entry to identify completed tasks from an existing to-do list.
 
