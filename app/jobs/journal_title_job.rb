@@ -15,5 +15,7 @@ class JournalTitleJob < ApplicationJob
 
     puts "🐰🐰🐰 #{journal.title} 🐰🐰🐰"
     puts "🐰🐰🐰 TITLE Job DONE 🐰🐰🐰"
+
+    
   end
 end
