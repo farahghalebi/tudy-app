@@ -42,6 +42,7 @@ class JournalTagsJob < ApplicationJob
         tag.name = tags_json["category"]
         # tag.content = tags_json["subcategory"] # we dont do the sub categories for now we'll do it later
         tag.todo_id = todo.id
+        tag.journal = todo.journal
         if tag.save
           puts "🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰TAG: #{tag.name} "
         else
