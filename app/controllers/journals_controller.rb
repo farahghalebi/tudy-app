@@ -64,19 +64,9 @@ If no tasks are completed, return:
     # File Upload -----------------------------
     if @journal.file.attached?
       JournalFileJob.perform_later(@journal, JOURNAL_APP_PROMT, FILE_PROMT)
+    else
+      journal_text_jobs
     end
-
-    # Title -------------------------------------
-    JournalTitleJob.perform_later(@journal, JOURNAL_APP_PROMT, TITLE_PROMT)
-
-    # TODO  --------------------------------
-    JournalTodosJob.perform_later(@journal, JOURNAL_APP_PROMT, TODOS_PROMT)
-
-    # Summary -----------------------------------
-    JournalSummaryJob.perform_later(@journal, JOURNAL_APP_PROMT, SUMMARY_PROMT)
-
-    # Tags  -------------------------------------
-    JournalTagsJob.perform_later(@journal, JOURNAL_APP_PROMT, TAGS_PROMT)
 
   end
 
@@ -94,6 +84,20 @@ If no tasks are completed, return:
   end
 
   private
+
+  def journal_text_jobs
+    # Title -------------------------------------
+    JournalTitleJob.perform_later(@journal, JOURNAL_APP_PROMT, TITLE_PROMT)
+
+    # TODO  --------------------------------
+    JournalTodosJob.perform_later(@journal, JOURNAL_APP_PROMT, TODOS_PROMT)
+
+    # Summary -----------------------------------
+    JournalSummaryJob.perform_later(@journal, JOURNAL_APP_PROMT, SUMMARY_PROMT)
+
+    # Tags  -------------------------------------
+    JournalTagsJob.perform_later(@journal, JOURNAL_APP_PROMT, TAGS_PROMT)
+  end
 
   def journal_params
     params.require(:journal).permit(:content, :file)

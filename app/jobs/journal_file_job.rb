@@ -41,12 +41,16 @@ class JournalFileJob < ApplicationJob
 
     end
 
-    if journal.content
-      journal.content += file_response
-    else
-      journal.content = file_response
-    end
-      journal.save
+    journal.update!(content: [journal.content, file_response].compact.join("\n\n"))
+
+    journal.save
+
+    # Now enqueue dependent jobs ------------------------------
+    JournalTitleJob.perform_later(journal, journal_app_prompt, JournalsController::TITLE_PROMT)
+    JournalTodosJob.perform_later(journal, journal_app_prompt, JournalsController::TODOS_PROMT)
+    JournalSummaryJob.perform_later(journal, journal_app_prompt, JournalsController::SUMMARY_PROMT)
+    JournalTagsJob.perform_later(journal, journal_app_prompt, JournalsController::TAGS_PROMT)
+
 
     puts "🐰🐰🐰 #{journal.content} 🐰🐰🐰"
     puts "🐰🐰🐰 FILE Job DONE 🐰🐰🐰"
