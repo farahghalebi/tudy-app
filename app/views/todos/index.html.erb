@@ -1,7 +1,7 @@
+<!--app/view/todos/index.html.erb-->
+
 <%= turbo_stream_from "journal_stream" %>
 <% content_for :body_class, "lined-paper" %>
-
-<!--app/view/todos/index.html.erb-->
 
 <!-- this is the page after new journal entry- -->
 <div  id="todo-container" data-controller="swipe"

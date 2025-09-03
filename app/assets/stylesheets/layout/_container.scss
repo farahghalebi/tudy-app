@@ -1,0 +1,9 @@
+// app/assets/stylesheets/layout/_container.scss
+
+.main-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  /* Füge eine Top-Margin hinzu, um den gesamten Inhalt der Seite zu verschieben */
+  margin-top: 3rem;
+}

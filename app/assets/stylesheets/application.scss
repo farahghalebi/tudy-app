@@ -7,6 +7,12 @@
 @import "bootstrap";
 @import "font-awesome";
 
+// Import your global utility classes
+@import "utilities/spacing";
+
+// layout
+@import "layout/container";
+
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
@@ -56,4 +62,20 @@
   width: 100%;
   padding: 0 10%;
   margin: 0 auto;
+}
+
+// #############################################################################################################
+
+// this are just guidelines – WILL REMOVE AFTER STYLING!!
+
+body::after {
+  content: '';
+  position: absolute;
+  top: 4.5rem; /* Hier kannst du den gewünschten Abstand anpassen */
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: transparent;
+  border-top: 2px dashed rgb(203, 26, 188);
+  z-index: 9999;
 }
