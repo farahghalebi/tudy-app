@@ -44,7 +44,9 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 gem "bootsnap", require: false
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+# Use Cloudinary for Active Storage - Image Upload
+gem "cloudinary"
+gem "image_processing", "~> 1.2" # needed by ActiveStorage
 
 gem "bootstrap", "~> 5.3"
 gem "devise"
@@ -53,8 +55,9 @@ gem "font-awesome-sass", "~> 6.1"
 gem "simple_form", github: "heartcombo/simple_form"
 gem "sassc-rails"
 
+# Use Solid Queue for Background Jobs
 gem "solid_queue"
-
+# USe Solid Cable for Turbo Streams
 gem "solid_cable"
 
 group :development, :test do
