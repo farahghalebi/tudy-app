@@ -102,15 +102,16 @@ If no tasks are completed, return:
 
       # Build context with journal and existing todos
       context = build_completion_context(journal, incomplete_todos)
-      p "🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰"
+      p "🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰"
       p context
 
       # Ask AI which todos are completed
-       # RubyLLM.chat.with_instructions(journal_app_prompt).ask("#{title_prompt} #{journal.content}").content
+      # RubyLLM.chat.with_instructions(journal_app_prompt).ask("#{title_prompt} #{journal.content}").content
 
-      response =  RubyLLM.chat.with_instructions(COMPLETED_TASKS_PROMT).ask(context).content
+      response = RubyLLM.chat.with_instructions(COMPLETED_TASKS_PROMT).ask(context).content
       return unless response.present?
-      p "🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰"
+
+      p "🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰🐰"
       p response
 
       # Parse AI response and mark todos as completed
@@ -125,7 +126,7 @@ If no tasks are completed, return:
           todo.update!(
             status: true,
             # completed_at: Time.current,
-           #  auto_completed: true
+            #  auto_completed: true
           )
         end
 
