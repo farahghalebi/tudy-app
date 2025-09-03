@@ -1,40 +1,64 @@
 <% content_for :body_class, "crumbled-paper" %>
 
-<%# Find the previous/next (older/newer) journal by date %>
+<%# Previous/next journals %>
 <% older_journal = Journal.where("created_at < ?", @journal.created_at).order(created_at: :desc).first %>
-<% newer_journal = Journal.where("created_at > ?", @journal.created_at).order(created_at: :desc).last %>
-
+<% newer_journal = Journal.where("created_at > ?", @journal.created_at).order(created_at: :asc).first %>
 
 <div class="journal-new-page">
-  <h1><%= @journal.created_at.strftime("%B %d, %Y") %></h1>
+  <div class="typewriter journal-date p-5">
+    <%# AI Generated Stuff to Toggle %>
+    <div data-controller="journal-toggle">
+      <div id="toggler" data-action="click->journal-toggle#toggle", class="typewriter my-5">
+        <%= @journal.created_at.strftime("%B %d, %Y") %>
+        (more)
+      </div>
+
+      <div id="toggle-box" data-journal-toggle-target="box" class="typewriter hidden">
+
+        <p><strong><%= @journal.title %>:</strong> <%= @journal.summary %></p>
+
+        <% if @journal.tags.any? %>
+          <ul class="list-unstyled">
+            <% @journal.tags.each do |tag| %>
+              <li><p>#<%= tag.name %> - <%= tag.content %></p></li>
+            <% end %>
+          </ul>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+
+
   <div class="journal-form-wrapper">
-    <h3><%= @journal.title %></h3>
-    <p><%= @journal.content %></p>
-    <p>Journal Summary:</p>
-    <p>
-      <% if @journal.summary.present? %>
-          <%= @journal.summary %>
-      <% end %>
-    </p>
-    <p>Tags:</p>
-    <ul class="list-unstyled">
-      <% @journal.tags.each do |tag| %>
-          <li># <%= tag.name %> - <%= tag.content %></li>
-      <% end %>
-    </ul>
 
-    <%= link_to "<", root_path(journal_id: @journal.id), class: "button-swipe left" %>
-    <%= link_to ">", todos_path(journal_id: @journal.id), class: "button-swipe right" %>
+    <div class="handwritten-user">
+      <p><%= @journal.content %></p>
+    </div>
 
+
+    <%# Swipe Buttons %>
+    <div class="swipe-button-box left">
+      <%= link_to "Journals", journals_path(journal_id: @journal.id), class: "button-swipe" %>
+    </div>
+
+    <div class="swipe-button-box right">
+      <%= link_to "Todos", todos_path(journal_id: @journal.id), class: "button-swipe" %>
+    </div>
+
+    <div class="swipe-button-box up">
+      <% if newer_journal %>
+        <%= link_to "Previous Journal", journal_path(newer_journal), class: "button-swipe" %>
+      <% else %>
+        <%= link_to "New Journal", new_journal_path, class: "button-swipe" %>
+      <% end %>
+    </div>
 
     <% if older_journal %>
-      <%= link_to "V", journal_path(older_journal), class: "button-swipe down" %>
+      <div class="swipe-button-box down">
+        <%= link_to "Next Journal", journal_path(older_journal), class: "button-swipe" %>
+      </div>
     <% end %>
 
-    <% if newer_journal %>
-      <%= link_to "^", journal_path(newer_journal), class: "button-swipe up" %>
-    <% else %>
-      <%= link_to "^", new_journal_path, class:"button-swipe up" %>
-    <% end %>
-    </div>
+  </div>
 </div>

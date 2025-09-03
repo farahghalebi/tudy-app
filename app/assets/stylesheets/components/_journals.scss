@@ -58,3 +58,22 @@
     opacity: 1;
   }
 }
+
+
+// Styling for Journal Index Page
+.journal-title-date {
+  display: flex;
+  align-items: baseline; /* keeps text aligned nicely */
+  gap: 0.5rem; /* space between title and date */
+}
+
+.journal-title-date h4 {
+  text-align: left;
+}
+
+.journal-title-date .journal-date {
+  font-size: 0.8rem;
+  color: #555;
+}
+
+.hidden { display: none; }

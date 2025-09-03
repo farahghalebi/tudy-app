@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito:400,700|Work+Sans:400,700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cedarville+Cursive&family=Just+Another+Hand&family=Cutive&display=swap');
 
+@import "colors";
 
 // Define fonts for body and headers
 $body-font: "Work Sans", "Helvetica", "sans-serif";
@@ -12,7 +13,6 @@ $journal-ai-handwritten-h1: 'Cedarville Cursive', cursive;
 $journal-ai-typewriter-body: 'Cutive', monospace;
 $journal-user-body: 'Just Another Hand', cursive;
 
-
 // To use a font file (.woff) uncomment following lines
 // @font-face {
 //   font-family: "Font Name";
@@ -22,3 +22,45 @@ $journal-user-body: 'Just Another Hand', cursive;
 //        font-url('FontFile.ttf') format('truetype')
 // }
 // $my-font: "Font Name";
+
+h1 {
+  font-size: 3rem;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+h3 {
+  font-size: 1rem;
+  text-align: center;
+}
+
+h4 {
+  font-size: 0.5rem;
+  text-align: center;
+}
+
+.handwritten-ai p {
+  font-size: 1.5rem;
+}
+
+.handwritten-ai {
+  font-family: $journal-ai-handwritten-h1;
+  color: $ballpoint-pen-blue;
+}
+
+.handwritten-user {
+  font-family: $journal-user-body;
+  color: $ballpoint-pen-blue;
+}
+
+.handwritten-user p {
+  font-size: 1.5rem;
+}
+
+.typewriter {
+  font-family: $journal-ai-typewriter-body;
+}
