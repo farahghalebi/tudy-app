@@ -3,13 +3,27 @@
 class TodosController < ApplicationController
   before_action :set_todo, only: [:edit, :update, :destroy]
 
-  def index
+  PREDEFINED_CATEGORIES = ['Work', 'Personal', 'Health', 'Study', 'Finance', 'Leisure', 'Social', 'Hobbies', 'Development'].freeze
+
+
+   def index
     todos_scope = find_todos_scope
-    if params[:filter] == 'completed'
+
+    if params[:tag].present?
+      # Filter by a specific tag
+      # tag = Tag.find_by(name: params[:tag].capitalize)
+      # @todos = tag ? tag.todos.order(status: :asc, due_date: :asc) : todos_scope.none
+      @todos = todos_scope.joins(:tags).where(tags: { name: params[:tag] }).order(status: :asc, due_date: :asc)
+    elsif params[:filter] == 'completed'
+      # Filter by completed todos
       @todos = todos_scope.where(status: true).order(due_date: :desc)
     else
-      @todos = todos_scope.order(status: :asc, due_date: :asc)
+      # Default view: all todos, grouped by tags
+      # as of now: to dos without tag, WONT BE SHOWN!!!
+      @todos_by_tag = todos_scope.joins(:tags).includes(:tags).group_by { |todo| todo.tags.first.name }
+      @todos_by_tag = @todos_by_tag.sort_by { |tag_name, _| tag_name }
     end
+
     @todo = Todo.new
   end
 

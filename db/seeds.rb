@@ -101,9 +101,9 @@ ActiveRecord::Base.transaction do
 
   # Tags -------------------------------------------------------------------
   tags_data = [
-    { name: "life-admin", content: "Home & paperwork", journal: "Life Admin Roundup", todo: "Deep clean the apartment" },
-    { name: "work", content: "Showcase tasks", journal: "Project Week Kickoff", todo: "Prepare showcase deck" },
-    { name: "travel", content: "Trips & documents", journal: "Come back to Paris and paperwork in Iran", todo: "Plan Iran trip & paperwork" }
+    { name: "Personal", content: "Home & paperwork", journal: "Life Admin Roundup", todo: "Deep clean the apartment" },
+    { name: "Work", content: "Showcase tasks", journal: "Project Week Kickoff", todo: "Prepare showcase deck" },
+    { name: "Leisure", content: "Trips & documents", journal: "Come back to Paris and paperwork in Iran", todo: "Plan Iran trip & paperwork" }
   ]
 
   tags_data.each do |data|
