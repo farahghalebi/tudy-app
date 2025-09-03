@@ -7,9 +7,9 @@ class JournalsController < ApplicationController
                 Output only the text form file (no extra text)"
   TITLE_PROMT = "Create a title (2-4 words) capturing the journal entry"
   SUMMARY_PROMT = "Create a short summary (1-2 sentences) reflecting the journal entry"
-  TAGS_PROMT = "Write 2–4 hashtags (e.g. Life, Work, Family, Love, ...)
-                With very short content summaries extracted from the journal.
-                As valid JSON in this format: [{name: 'tag', content: 'summary'}]"
+  # TAGS_PROMT = "Write 2–4 hashtags (e.g. Life, Work, Family, Love, ...)
+              #  With very short content summaries extracted from the journal.
+              # As valid JSON in this format: [{name: 'tag', content: 'summary'}]"
   TODOS_PROMT = "From my journal, extract actionable tasks into valid JSON. Each task must have:
                 title: 1-3 words, concise
                 description: extract a short text from journal
@@ -68,6 +68,7 @@ If no tasks are completed, return:
       journal_text_jobs
     end
 
+
   end
 
   def show
@@ -95,8 +96,6 @@ If no tasks are completed, return:
     # Summary -----------------------------------
     JournalSummaryJob.perform_later(@journal, JOURNAL_APP_PROMT, SUMMARY_PROMT)
 
-    # Tags  -------------------------------------
-    JournalTagsJob.perform_later(@journal, JOURNAL_APP_PROMT, TAGS_PROMT)
   end
 
   def journal_params
