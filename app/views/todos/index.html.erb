@@ -1,9 +1,7 @@
 <%= turbo_stream_from "journal_stream" %>
 <% content_for :body_class, "lined-paper" %>
 
-<!--app/view/todos/index.html.erb-->
-
-<!-- this is the page after new journal entry- -->
+<!-- Swiping actions -->
 <div  id="todo-container" data-controller="swipe"
     data-swipe-right-url-value="<%=new_journal_path(@journal)%>"
   <% if params[:back_journal_id].present? %>
@@ -12,7 +10,8 @@
 >
 
 <% if @journal %>
-  <h1 id="journal-title" class="ai-output"><%= @journal.title %></h1>
+  <!-- id="element" to contain animated typing -->
+  <h1 id="journal-title" class="ai-output"><span id="element"></span><%= @journal.title %></h1>
 <% else %>
   <h1>My To-Do List</h1>
 <% end %>
@@ -60,3 +59,15 @@
   <%= link_to 'Back', todos_path(journal_id: params[:back_journal_id]) if params[:back_journal_id].present? %>
 <% end %>
 </div>
+
+<%#  Typed.js Animation - %>
+<!-- Load library from the CDN -->
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+<!-- Setup and start animation! -->
+<script>
+  var typed = new Typed('#element', {
+    strings: ['<i>Tudy</i> is thinking','...', 'just a moment please',''],
+    typeSpeed: 50,
+  });
+</script>
