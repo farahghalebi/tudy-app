@@ -9,10 +9,11 @@
     <%# AI Generated Stuff to Toggle %>
     <div data-controller="journal-toggle">
       <div id="toggler" data-action="click->journal-toggle#toggle", class="typewriter my-5">
-        <%= @journal.created_at.strftime("%B %d, %Y") %> (more)
+        <%= @journal.created_at.strftime("%B %d, %Y") %>
+        (more)
       </div>
 
-      <div id="toggle-box" data-journal-toggle-target="box" class="handwritten-ai hidden">
+      <div id="toggle-box" data-journal-toggle-target="box" class="typewriter hidden">
 
         <p><strong><%= @journal.title %>:</strong> <%= @journal.summary %></p>
 
