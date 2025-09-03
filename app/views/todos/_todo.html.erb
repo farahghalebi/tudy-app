@@ -1,7 +1,7 @@
 <!--app/views/todos/_todo.html.erb-->
 
 <li class="todo-item" id="<%= dom_id(todo) %>">
-    <%= form_with(model: todo, url: todo_path(todo), method: :patch, data: { turbo: true }, class: "align-with-first-line") do |form| %>
+    <%= form_with(model: todo, url: todo_path(todo), method: :patch, data: { turbo: true }, class: "align-with-first-line custom-checkbox-input") do |form| %>
       <%= form.check_box :status, onchange: "this.form.requestSubmit()" %>
     <% end %>
     <span class="todo-title user-content" data-controller="expand" data-action="click->expand#toggle" data-expand-target="content" data-expand-truncated-class="truncated">
