@@ -23,6 +23,11 @@ $journal-user-body: 'Just Another Hand', cursive;
 // }
 // $my-font: "Font Name";
 
+h1 {
+  font-size: 3rem;
+  text-align: center;
+}
+
 h2 {
   font-size: 2rem;
   text-align: center;
@@ -38,9 +43,22 @@ h4 {
   text-align: center;
 }
 
-.handwritten {
+.handwritten-ai p {
+  font-size: 1.5rem;
+}
+
+.handwritten-ai {
   font-family: $journal-ai-handwritten-h1;
   color: $ballpoint-pen-blue;
+}
+
+.handwritten-user {
+  font-family: $journal-user-body;
+  color: $ballpoint-pen-blue;
+}
+
+.handwritten-user p {
+  font-size: 1.5rem;
 }
 
 .typewriter {

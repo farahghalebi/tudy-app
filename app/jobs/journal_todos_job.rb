@@ -28,11 +28,14 @@ class JournalTodosJob < ApplicationJob
           locals: { todo: todo}
         )
       else
-        puts "❌❌❌ Failed to save TODO: #{todo.errors.full_messages.join(", ")} ❌❌❌"
+        puts "❌❌❌ ❌❌❌ Failed to save TODO: #{todo.errors.full_messages.join(", ")} ❌❌❌"
       end
 
     end
 
     puts "🐰🐰🐰 TODOS Job DONE 🐰🐰🐰"
+
+    # Tags  -------------------------------------
+    JournalTagsJob.perform_later(journal, journal_app_prompt)
   end
 end

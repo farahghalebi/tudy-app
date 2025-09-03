@@ -3,11 +3,13 @@ require "json"
 class JournalsController < ApplicationController
   # ALL PROMTS in one Place here -------------------------------
   JOURNAL_APP_PROMT = "You are a personal journaling and to-do assistant."
+  FILE_PROMT = "Extract the text from this file to create the journal entry.
+                Output only the text form file (no extra text)"
   TITLE_PROMT = "Create a title (2-4 words) capturing the journal entry"
   SUMMARY_PROMT = "Create a short summary (1-2 sentences) reflecting the journal entry"
-  TAGS_PROMT = "Write 2–4 hashtags (e.g. Life, Work, Family, Love, ...)
-                With very short content summaries extracted from the journal.
-                As valid JSON in this format: [{name: 'tag', content: 'summary'}]"
+  # TAGS_PROMT = "Write 2–4 hashtags (e.g. Life, Work, Family, Love, ...)
+              #  With very short content summaries extracted from the journal.
+              # As valid JSON in this format: [{name: 'tag', content: 'summary'}]"
   TODOS_PROMT = "From my journal, extract actionable tasks into valid JSON. Each task must have:
                 title: 1-3 words, concise
                 description: extract a short text from journal
@@ -56,21 +58,18 @@ If no tasks are completed, return:
     if @journal.save
       redirect_to todos_path(journal_id: @journal.id), notice: "Journal created successfully."
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
-    # Title -------------------------------------
-    JournalTitleJob.perform_later(@journal, JOURNAL_APP_PROMT, TITLE_PROMT)
 
-    # TODO_brief --------------------------------
-    JournalTodosJob.perform_later(@journal, JOURNAL_APP_PROMT, TODOS_PROMT)
 
-    # Summary -----------------------------------
-    JournalSummaryJob.perform_later(@journal, JOURNAL_APP_PROMT, SUMMARY_PROMT)
+    # File Upload -----------------------------
+    if @journal.file.attached?
+      JournalFileJob.perform_later(@journal, JOURNAL_APP_PROMT, FILE_PROMT)
+    else
+      journal_text_jobs
+    end
 
-    # Tags  -------------------------------------
-    JournalTagsJob.perform_later(@journal, JOURNAL_APP_PROMT, TAGS_PROMT)
-    # Auto-complete existing todos
-    auto_complete_todos(@journal)
+
   end
 
   def show
@@ -88,8 +87,22 @@ If no tasks are completed, return:
 
   private
 
+  def journal_text_jobs
+    # Title -------------------------------------
+    JournalTitleJob.perform_later(@journal, JOURNAL_APP_PROMT, TITLE_PROMT)
+
+    # TODO  --------------------------------
+    JournalTodosJob.perform_later(@journal, JOURNAL_APP_PROMT, TODOS_PROMT)
+
+    # Summary -----------------------------------
+    JournalSummaryJob.perform_later(@journal, JOURNAL_APP_PROMT, SUMMARY_PROMT)
+
+    # Auto-complete existing todos
+    auto_complete_todos(@journal)
+  end
+
   def journal_params
-    params.require(:journal).permit(:content)
+    params.require(:journal).permit(:content, :file)
   end
 
   # Auto-complete todos that are mentioned as done in the journal
