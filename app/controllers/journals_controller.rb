@@ -5,12 +5,15 @@ class JournalsController < ApplicationController
   JOURNAL_APP_PROMT = "You are a personal journaling and to-do assistant."
   FILE_PROMT = "Extract the text from this file to create the journal entry.
                 Output only the text form file (no extra text)"
-  TITLE_PROMT = "Create a title (2-4 words) capturing the journal entry"
+  TITLE_PROMT = "TITLE_PROMT = "Generate a short, meaningful title (2–4 words) that captures the main theme or mood of the journal entry."
+"
   SUMMARY_PROMT = "Create a short summary (1-2 sentences) reflecting the journal entry"
+
   TODOS_PROMT = "From my journal, extract actionable tasks into valid JSON. Each task must have:
                 title: 1-3 words, concise
                 description: extract a short text from journal
                 Output only valid JSON (no extra text), following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day and finally give them back in order'}]"
+
 
   def new
     @journal = Journal.new
