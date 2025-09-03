@@ -5,8 +5,8 @@ class JournalsController < ApplicationController
   JOURNAL_APP_PROMT = "You are a personal journaling and to-do assistant."
   FILE_PROMT = "Extract the text from this file to create the journal entry.
                 Output only the text form file (no extra text)"
-  TITLE_PROMT = "TITLE_PROMT = "Generate a short, meaningful title (2–4 words) that captures the main theme or mood of the journal entry."
-"
+  TITLE_PROMT = "Generate a short, meaningful title (2–4 words) that captures the main theme or mood of the journal entry."
+
   SUMMARY_PROMT = "Create a short summary (1-2 sentences) reflecting the journal entry"
 
   TODOS_PROMT = "From my journal, extract actionable tasks into valid JSON. Each task must have:
