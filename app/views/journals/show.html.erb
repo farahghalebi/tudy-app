@@ -1,4 +1,4 @@
-<% content_for :body_class, "crumbled-paper" %>
+<% content_for :body_class, "aquarell-paper" %>
 <%# Previous/next journals - DEFINE THESE FIRST %>
 <% older_journal = current_user.journals.where("created_at < ?", @journal.created_at).order(created_at: :desc).first %>
 <% newer_journal = current_user.journals.where("created_at > ?", @journal.created_at).order(created_at: :asc).first %>
@@ -8,23 +8,24 @@
   data-swipe-down-url-value="<%= root_path %>"
   data-swipe-up-url-value="<% if older_journal %><%= journal_path(older_journal) %><% else %><%= journal_path(newer_journal) if newer_journal %><% end %>"
   style="min-height: 100vh;">
-<div class="journal-new-page">
-  <div class="typewriter journal-date p-5">
+<div class="main-container">
+  <div class="typewriter journal-date">
     <%# AI Generated Stuff to Toggle %>
     <div data-controller="journal-toggle">
-      <div id="toggler" data-action="click->journal-toggle#toggle", class="typewriter my-5">
-        <%= @journal.created_at.strftime("%B %d, %Y") %>
-        (more)
+      <div id="toggler" data-action="click->journal-toggle#toggle">
+        <h1 class="special-headline mt-md"><%= @journal.title %></h1>
+        <h3 class="mt-md"><%= @journal.created_at.strftime("%B %d, %Y") %></h3>
+        <span class="ai-output mt-md">(more)</span>
       </div>
 
-      <div id="toggle-box" data-journal-toggle-target="box" class="typewriter hidden">
+      <div id="toggle-box" data-journal-toggle-target="box" class="hidden">
 
-        <p><strong><%= @journal.title %>:</strong> <%= @journal.summary %></p>
+        <p class="user-content mt-md tags-display-journal"><%= @journal.summary %></p>
 
         <% if @journal.tags.any? %>
-          <ul class="list-unstyled">
-            <% @journal.tags.each do |tag| %>
-              <li><p>#<%= tag.name %> - <%= tag.content %></p></li>
+          <ul class="list-unstyled horizontal-list ai-output">
+              <% @journal.tags.uniq.each do |tag| %>
+              <li><p>#<%= tag.name %></p></li>
             <% end %>
           </ul>
         <% end %>
@@ -36,10 +37,9 @@
 
   <div class="journal-form-wrapper">
 
-    <div class="handwritten-user">
-      <p><%= @journal.content %></p>
+    <div class="user-content">
+      <p class="user-content mt-sm"><%= @journal.content %></p>
     </div>
-
 
     <!-- Navigation-Buttons -->
     <div class="swipe-button-box left">
