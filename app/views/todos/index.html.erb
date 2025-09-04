@@ -33,7 +33,7 @@
       <!-- Filter Status -->
       <%= link_to "All", todos_path(journal_id: @journal), class: "marker-link" %>
       <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "marker-link" %>
-      <%= form_with url: todos_path, method: :get, class: "d-flex align-items-center d-inline-block ms-2 dropdown" do %>
+      <%= form_with url: todos_path, method: :get, class: "d-flex align-items-center d-inline-block ms-2 dropdown ai-output" do %>
         <%= hidden_field_tag :journal_id, params[:journal_id] %>
         <%= select_tag :tag,
             options_for_select(TodosController::PREDEFINED_CATEGORIES, params[:tag]),
@@ -60,7 +60,10 @@
     </ul>
 
     <div data-controller="toggle">
-      <button data-action="click->toggle#toggleForm">➕</button>
+       <%= image_tag "icons/add_icon.png",
+        data: { action: "click->toggle#toggleForm" },
+        alt: "Add To-Do",
+        class: "toggle-icon add-to-to-icon" %>
       <div id="new_todo_form" data-toggle-target="form" style="display:none;">
         <%= render "form", todo: @todo, url: @journal ? journal_todos_path(@journal) : todos_path %>
       </div>
