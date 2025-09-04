@@ -1,4 +1,4 @@
-<% content_for :body_class, "crumbled-paper" %>
+<% content_for :body_class, "aquarell-paper" %>
 <%# Previous/next journals - DEFINE THESE FIRST %>
 <% older_journal = current_user.journals.where("created_at < ?", @journal.created_at).order(created_at: :desc).first %>
 <% newer_journal = current_user.journals.where("created_at > ?", @journal.created_at).order(created_at: :asc).first %>
