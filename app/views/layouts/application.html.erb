@@ -11,6 +11,7 @@
     <%# PWA stuff %>
     <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
     <link rel="apple-touch-icon" href="app/assets/images/icons/apple-icon-180x180.png">
+    <%= favicon_link_tag 'favicon.png' %>
     <%= render 'shared/ios_pwa_links' %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
