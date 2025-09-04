@@ -28,12 +28,23 @@
     <% end %>
   </ul>
 
-    <%= link_to "^", root_path, class: "button-swipe up" %>
-    <%# > - Link goes back to Journal, if user was coming from Journal %>
-    <% if params[:journal_id] %>
-      <%= link_to ">", journal_path(params[:journal_id]), class: "button-swipe right" %>
-    <% else %>
-      <%= link_to ">", new_journal_path, class: "button-swipe right" %>
-    <% end %>
+    <!-- NAVIGATION-BUTTONS  -->
+
+    <div class="swipe-button-box up">
+      <%= link_to "home", root_path, class: "button-swipe" %>
+    </div>
+
+    <!-- Link goes back to Journal, if user was coming from Journal -->
+
+    <div class="swipe-button-box right">
+      <% if params[:journal_id] %>
+        <%= link_to "Journal", journal_path(params[:journal_id]), class: "button-swipe" %>
+      <% else %>
+        <%= link_to "new", new_journal_path, class: "button-swipe" %>
+      <% end %>
+    </div>
+
+
+
   </div>
 </div>
