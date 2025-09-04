@@ -2,13 +2,15 @@
 
 <div
   data-controller="swipe"
+  data-swipe-down-url-value=" <%= root_path %>"
   data-swipe-left-url-value="<%= params[:journal_id].present? ? journal_path(params[:journal_id]) : new_journal_path %>"
   style="min-height: 100vh;"
 >
 
 <div class="journals main container">
   <h1 class="special-headline">My Journals</h1>
-  <div class="journal-form-wrapper mt-md">
+  <div cl
+  ass="journal-form-wrapper mt-md">
     <%#  Journal Title & Summary %>
     <ul class="list-unstyled">
     <% @journals.order(created_at: :desc)
