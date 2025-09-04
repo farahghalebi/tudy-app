@@ -6,7 +6,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="view-transition" content="same-origin" />
-
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%# PWA stuff %>
+    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
+    <%= render 'shared/ios_pwa_links' %>
+    
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
