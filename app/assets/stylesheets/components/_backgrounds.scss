@@ -34,6 +34,7 @@ body {
 // Class for a lined paper effect using CSS gradients
 .lined-paper {
   // main background for page
+  position: relative;
   background-color: $eggshell;
   background-image: linear-gradient(
     to bottom,
@@ -47,12 +48,17 @@ body {
     content: "";
     position: absolute;
     top: 0;
-    left: 3.5rem;
+    left: 1.8rem;
     width: 3px;
     height: 100%;
     background-color: rgba($red, 0.3);
     filter: blur(0.5px);
     z-index: 100;
+  }
+
+   > * {
+    position: relative;
+    z-index: 1;
   }
 
 
