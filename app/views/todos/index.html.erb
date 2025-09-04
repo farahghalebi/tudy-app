@@ -2,13 +2,17 @@
 <%= turbo_stream_from "journal_stream" %>
 <% content_for :body_class, "lined-paper" %>
 <!-- Swiping actions -->
+<% back_id = params[:back_journal_id].presence || params[:journal_id].presence %>
 <div
   data-controller="swipe"
+  <%# When viewing a specific journal's todos %>
   <% if @journal %>
-    data-swipe-up-url-value="<%= todos_path(back_journal_id: @journal.id) %>"
     data-swipe-left-url-value="<%= journal_path(@journal) %>"
-  <% elsif params[:back_journal_id].present? %>
-    data-swipe-down-url-value="<%= todos_path(journal_id: params[:back_journal_id]) %>"
+    data-swipe-down-url-value="<%= todos_path(back_journal_id: @journal.id) %>"
+  <% elsif back_id %>
+    data-swipe-up-url-value="<%= todos_path(journal_id: back_id) %>"
+  <% else %>
+    data-swipe-right-url-value="<%=  %>"
   <% end %>
   style="min-height: 100vh;"
 >
