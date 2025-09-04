@@ -1,3 +1,5 @@
+// app/assets/stylesheets/components/_buttons.scss
+
 .swipe-button-box {
   position: fixed;
   display: flex;
@@ -58,5 +60,123 @@
     left: 0;
     width: 100vw;
     height: 10vh;
+  }
+}
+
+
+// TAG CATEGORIES DROPDOWN
+.filter-nav {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+
+  .dropdown {
+    position: relative;
+    display: inline-block;
+
+    .filter-select {
+      font-family: $journal-ai-typewriter-body;
+      font-size: 0.8rem;
+      color: $fountain-pen-black;
+      background-color: transparent;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      text-indent: 0.01px;
+      text-overflow: '';
+      padding-right: 1.2em;
+      background-image: url("data:image/svg+xml,%3Csvg fill='none' stroke='%23000' stroke-width='2' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5rem center;
+      background-size: 0.6rem 0.6rem;
+      position: relative;
+      z-index: 101; // über anderen Content
+    }
+
+    .filter-select:focus {
+      outline: none;
+    }
+
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: white;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 0.25rem 0;
+      list-style: none;
+      z-index: 100; // unter dem Button aber über Content
+      min-width: 120px;
+      border-radius: 4px;
+
+      li {
+        margin: 0;
+      }
+
+      .dropdown-item {
+        display: block;
+        padding: 0.25rem 0.5rem;
+        font-family: $journal-ai-typewriter-body;
+        font-size: 0.8rem;
+        color: $fountain-pen-black;
+        text-decoration: none;
+
+        &:hover {
+          background-color: rgba(0,0,0,0.05);
+        }
+      }
+    }
+
+    &.show .dropdown-menu {
+      display: block;
+    }
+
+    button.filter-select.active {
+      color: $fountain-pen-black;
+    }
+  }
+}
+
+// ICON SIZE
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+// MARKING ON HOVER
+
+.marker-link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: $fountain-pen-black;
+  font-family: $journal-ai-typewriter-body;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.01em; // slightly of the center
+    width: 0;
+    height: 1.2em; // text height
+    background: rgba(255, 200, 0, 0.4); // Markercolor >>> have to adjust color
+    z-index: -1; // hinter dem Text
+    transition: width 4s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+
+  &:active::after {
+    background: rgba(255, 180, 0, 0.6); // darkens when clicked
   }
 }

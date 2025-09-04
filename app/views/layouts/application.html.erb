@@ -15,9 +15,8 @@
   <body class="<%= content_for?(:body_class) ? yield(:body_class) : '' %>">
     <%= render "shared/navbar" %>
     <%= render "shared/flashes" %>
-    <div class="<%= content_for?(:body_class) ? '' : ' mt-3' %>">
-      <div class="custom-container">
-        <%= yield %>
+    <div class="<%= (content_for?(:body_class) && yield(:body_class).include?('main-container')) ? 'main-container' : 'custom-container' %>">
+     <%= yield %>
       </div>
     </div>
   </body>

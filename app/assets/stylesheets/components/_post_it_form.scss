@@ -1,0 +1,75 @@
+/* app/assets/stylesheets/components/_post_it_form.scss */
+
+.post-it-form {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff9b1;
+  padding: 1rem 1.5rem;
+  box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
+  border-radius: 4px;
+  transform: rotate(var(--post-it-rotation, 0deg));
+  margin-bottom: 1rem;
+
+  width: 100%;
+  max-width: 320px;
+
+  aspect-ratio: 1 / 1;
+
+  justify-content: center;
+
+  // animation while opening the Post it
+  opacity: 0;
+  transform: scale(0.95) rotate(var(--post-it-rotation, 0deg));
+  animation: fadeInPostIt 0.3s forwards;
+
+  @keyframes fadeInPostIt {
+    to {
+      opacity: 1;
+      transform: scale(1) rotate(var(--post-it-rotation, 0deg));
+    }
+  }
+   .ai-output {
+    text-align: left;
+    display: block;
+    width: 100%;
+  }
+}
+
+.post-it-form .post-it-input {
+  display: block;
+  width: 100%;
+  font-family: $journal-user-body;
+  color: $ballpoint-pen-blue;
+  font-size: 1.5rem;
+  background-color: transparent;
+  border: none;
+  border-bottom: 2px solid $ballpoint-pen-blue;
+  margin-bottom: 1rem;
+  padding: 0.25rem 0;
+  outline: none;
+
+  height: 1.75rem;
+  overflow-x: auto;
+  white-space: nowrap;
+
+  &:focus {
+    border-bottom-color: darken($ballpoint-pen-blue, 10%);
+  }
+
+  &::placeholder {
+    color: rgba($ballpoint-pen-blue, 0.5);
+  }
+}
+
+.post-it-form textarea.post-it-input {
+  height: 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  resize: none;
+  overflow-y: hidden;
+}
+
+/* Optional: rotation of the post its */
+.post-it-form:nth-child(odd) { --post-it-rotation: -3deg; }
+.post-it-form:nth-child(even) { --post-it-rotation: 2deg; }
