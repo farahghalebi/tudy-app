@@ -4,11 +4,13 @@
 <% newer_journal = current_user.journals.where("created_at > ?", @journal.created_at).order(created_at: :asc).first %>
 
 <div
+  ddiv
   data-controller="swipe"
-  data-swipe-down-url-value="<%= root_path %>"
-  data-swipe-up-url-value="<% if older_journal %><%= journal_path(older_journal) %><% else %><%= journal_path(newer_journal) if newer_journal %><% end %>"
-  data-swipe-up-url-value="<%journals_path%>"
-  style="min-height: 100vh;">
+  data-swipe-right-url-value="<%= journals_path(journal_id: @journal.id) %>"
+  data-swipe-up-url-value="<%= newer_journal ? journal_path(newer_journal) : new_journal_path %>"
+  data-swipe-down-url-value="<%= older_journal ? journal_path(older_journal) : nil %>"
+  style="min-height: 100vh;"
+>
 <div class="journal-new-page">
   <div class="typewriter journal-date p-5">
     <%# AI Generated Stuff to Toggle %>
