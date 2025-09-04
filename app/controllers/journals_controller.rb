@@ -46,7 +46,7 @@ class JournalsController < ApplicationController
   end
 
   def show
-    @journal = Journal.find(params[:id])
+    @journal = current_user.journals.find(params[:id])
   end
 
   def index
