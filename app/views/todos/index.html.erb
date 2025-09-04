@@ -63,8 +63,11 @@
   <div class="swipe-button-box up">
     <%= link_to "back", todos_path(journal_id: params[:back_journal_id]), class: "button-swipe" %>
   </div>
+<% else%>
+  <div class="swipe-button-box left">
+    <%= link_to "Journal", new_journal_path, class: "button-swipe" %>
+  </div>
 <% end %>
-
 
 
 <!--  Typed.js Animation -->
