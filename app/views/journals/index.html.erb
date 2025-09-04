@@ -8,6 +8,7 @@
 >
 
 <div class="journals main container">
+
   <h1 class="special-headline">My Journals</h1>
   <div class="journal-form-wrapper mt-md">
     <%#  Journal Title & Summary %>
@@ -16,7 +17,7 @@
                 .group_by { |j| j.created_at.beginning_of_month }
                 .each do |month, journals| %>
       <li>
-        <h3><%= month.strftime("%B %Y") %></h3>
+        <h3 class="mt-md"><%= month.strftime("%B %Y") %></h3>
         <ul class="list-unstyled mt-md">
           <% journals.each do |journal| %>
             <li>

@@ -1,0 +1,12 @@
+
+.ai-output-date{
+  font-size: 1rem;
+  text-align: center;
+  font-family: $journal-ai-typewriter-body;
+  color: $fountain-pen-black;
+}
+
+.tags-display-journal {
+  display: flex;
+  gap: 10px;
+}

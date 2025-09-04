@@ -6,6 +6,12 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <meta name="view-transition" content="same-origin" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <%# PWA stuff %>
+    <link rel="manifest" href="<%= asset_path 'assets/config/manifest.json.erb' %>">
+    <link rel="apple-touch-icon" href="assets/images/icons/apple-icon-180x180.png">
+    <%= render 'shared/ios_pwa_links' %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
