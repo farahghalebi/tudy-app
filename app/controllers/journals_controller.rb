@@ -9,10 +9,19 @@ class JournalsController < ApplicationController
 
   SUMMARY_PROMT = "Create a short summary (1-2 sentences) reflecting the journal entry"
 
-  TODOS_PROMT = "From my journal, extract actionable tasks into valid JSON. Each task must have:
-                title: 1-3 words, concise
-                description: extract a short text from journal
-                Output only valid JSON (no extra text), following this pattern: [{title: 'groceries', description: 'cooking dinner for friends'},{title: 'meditate', description: 'recover from hard work day and finally give them back in order'}]"
+  TODOS_PROMT = "From my journal, extract actionable tasks that are NOT already completed.
+
+  INSTRUCTIONS:
+  1. Focus only on plans, intentions, or actions that still need to be done (future or pending tasks).
+  2. Do NOT create todos from activities already finished or written in the past tense.
+  3. Ignore anything that clearly indicates completion (e.g., 'I did', 'I finished', 'I went', 'I bought').
+  4. Keep todos concise and actionable.
+
+  OUTPUT FORMAT:
+  Return ONLY valid JSON, following this exact pattern:
+  [{title: 'groceries', description: 'buy ingredients for dinner'},
+  {title: 'meditate', description: 'recover from hard work day'}]"
+
 
 
   def new
@@ -46,7 +55,7 @@ class JournalsController < ApplicationController
   end
 
   def show
-    @journal = Journal.find(params[:id])
+    @journal = current_user.journals.find(params[:id])
   end
 
   def index

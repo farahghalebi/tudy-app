@@ -28,6 +28,7 @@
       <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "marker-link" %>
 
 
+
       <%= form_with url: todos_path, method: :get, class: "d-flex align-items-center d-inline-block ms-2 dropdown" do %>
         <%= hidden_field_tag :journal_id, params[:journal_id] %>
         <%= select_tag :tag,
@@ -87,7 +88,22 @@
     </div>
 </div>
 
-<%#  Typed.js Animation - %>
+<!-- Swipe-Buttons -->
+<% if @journal %>
+  <div class="swipe-button-box left">
+    <%= link_to "Journal", journal_path(@journal), class: "button-swipe" %>
+  </div>
+  <div class="swipe-button-box down">
+    <%= link_to "my To-Do List", todos_path(back_journal_id: @journal.id), class: "button-swipe" %>
+  </div>
+<% elsif params[:back_journal_id] %>
+  <div class="swipe-button-box up">
+    <%= link_to "back", todos_path(journal_id: params[:back_journal_id]), class: "button-swipe" %>
+  </div>
+<% end %>
+
+
+<!--  Typed.js Animation -->
 <!-- Load library from the CDN -->
 <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
 
