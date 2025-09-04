@@ -12,13 +12,13 @@
   data-swipe-left-url-value="<%= todos_path(journal_id: @journal.id)%>"
   style="min-height: 100vh;"
 >
-<div class="journal-new-page">
-  <div class="typewriter journal-date p-5">
+<div class="journal-new-page main-container">
+  <div class="journal-date">
 
     <%# AI Generated Stuff to Toggle %>
     <div data-controller="journal-toggle">
       <div id="toggler" data-action="click->journal-toggle#toggle">
-        <h1 class="special-headline mt-md"><%= @journal.title %></h1>
+        <span class="special-headline"><%= @journal.title %><span>
         <h3 class="mt-md"><%= @journal.created_at.strftime("%B %d, %Y") %></h3>
         <span class="ai-output mt-md">(more)</span>
       </div>
