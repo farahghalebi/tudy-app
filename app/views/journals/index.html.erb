@@ -1,12 +1,14 @@
 <% content_for :body_class, "aquarell-paper" %>
 
 <div
-data-controller="swipe"
-data-swipe-down-url-value="<%= root_path %>">
+  data-controller="swipe"
+  data-swipe-down-url-value="<%= root_path %>"
+  data-swipe-left-url-value="<%= params[:journal_id].present? ? journal_path(params[:journal_id]) : new_journal_path %>"
+  style="min-height: 100vh;"
+>
 
+<div class="journals main-container">
 
-
-<div class="journals main container">
   <h1 class="special-headline">My Journals</h1>
   <div class="journal-form-wrapper mt-md">
     <%#  Journal Title & Summary %>
@@ -15,7 +17,7 @@ data-swipe-down-url-value="<%= root_path %>">
                 .group_by { |j| j.created_at.beginning_of_month }
                 .each do |month, journals| %>
       <li>
-        <h3><%= month.strftime("%B %Y") %></h3>
+        <h3 class="mt-md"><%= month.strftime("%B %Y") %></h3>
         <ul class="list-unstyled mt-md">
           <% journals.each do |journal| %>
             <li>
