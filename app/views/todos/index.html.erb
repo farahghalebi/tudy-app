@@ -8,11 +8,11 @@
   <%# When viewing a specific journal's todos %>
   <% if @journal %>
     data-swipe-left-url-value="<%= journal_path(@journal) %>"
-    data-swipe-down-url-value="<%= todos_path(back_journal_id: @journal.id) %>"
+    data-swipe-up-url-value="<%= todos_path(back_journal_id: @journal.id) %>"
   <% elsif back_id %>
     data-swipe-up-url-value="<%= todos_path(journal_id: back_id) %>"
   <% else %>
-    data-swipe-right-url-value="<%=  %>"
+    data-swipe-right-url-value="<%= journal_path(@journal) %>"
   <% end %>
   style="min-height: 100vh;"
 >
