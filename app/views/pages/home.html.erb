@@ -1,18 +1,33 @@
-<div
-  data-controller="swipe"
+<% content_for :body_class, "crumbled-paper" %>
+<div class="main-home-page" data-controller="swipe"
   data-swipe-left-url-value="<%= new_journal_path %>"
   data-swipe-up-url-value="<%= journals_path %>"
-  style="min-height:100vh;"data-controller="swipe"
->
-<% content_for :body_class, "crumbled-paper" %>
-<div class="journal-new-page">
-  <h1>Tudy...</h1>
-  <div class="handwritten-user">
-    <p>... helps you TODO things smarter! </p>
-    <p>Just write down your journal about the day and see magic happen... </p>
-    <p><strong>swipe right</strong> to start... </p>
-    <p><strong>swipe down</strong> to check all your journals...</p>
+
+  style="min-height:100vh;">        <!-- Post-its -->
+  <div class="post-it-stack">
+    <!-- 1st Post-it -->
+    <div class="post-it">
+          <div class="home-post-it-content">
+        <h1 class="special-headline">Tudy...</h1>
+        <div class="handwritten-user">
+          <span id="element" class="user-content"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2nd Post it  -->
+    <div class="post-it">
+      <%= image_tag "todo_list_icon.png" %>
+    </div>
+
+    <!-- 3rd Post-it -->
+    <div class="post-it">
+      <%= image_tag "todo_list_icon.png" %>
+    </div>
+
   </div>
+
+
   <div class="swipe-button-box right">
     <% if params[:journal_id] %>
       <%= link_to "Journal", journal_path(params[:journal_id]), class: "button-swipe" %>
@@ -24,4 +39,17 @@
   <div class="swipe-button-box down">
     <%= link_to "All Journals", journals_path, class: "button-swipe" %>
   </div>
-</div>
+
+<!-- Typed.js Animation -->
+<!-- Load library from the CDN -->
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+<!-- Setup and start animation! -->
+<script>
+  var typed = new Typed('#element', {
+    strings: ['up your life!'],
+    typeSpeed: 80,
+    backSpeed: 50,
+    backDelay: 1500,
+    loop: true
+  });
+</script>
