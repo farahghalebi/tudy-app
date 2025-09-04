@@ -33,26 +33,11 @@
         <%= hidden_field_tag :journal_id, params[:journal_id] %>
         <%= select_tag :tag,
                         options_for_select(TodosController::PREDEFINED_CATEGORIES, params[:tag]),
-                        include_blank: "filter",
+                        include_blank: "Categories",
                         class: "form-select",
                         onchange: "this.form.requestSubmit()" %>
       <% end %>
     </div>
-
-      <!-- Categories Dropdown -->
-      <div class="dropdown" data-controller="dropdown">
-        <button class="filter-select marker-link ai-output" type="button" data-action="click->dropdown#toggle" aria-haspopup="true" aria-expanded="false">
-          <%= params[:tag].presence || "Categories" %>
-        </button>
-
-        <ul class="dropdown-menu" data-dropdown-target="menu">
-          <% TodosController::PREDEFINED_CATEGORIES.each do |category| %>
-            <li>
-              <%= link_to category, todos_path(journal_id: @journal, tag: category), class: "dropdown-item" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
 
     <!-- To-Do List -->
   <ul id="todos" class="list-unstyled mt-tn">
