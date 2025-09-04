@@ -27,7 +27,13 @@ h4 {
 }
 // Special headlines
 .special-headline {
-  font-family: $journal-ai-handwritten-h1;
+  font-family: $journal-handwritten;
+  color: $ballpoint-pen-blue;;
+  font-size: 2.75rem;
+}
+
+.ai-headline {
+  font-family: $journal-ai-typewriter-body;
   color: $ballpoint-pen-blue;
   font-size: 2.75rem;
 }
@@ -45,4 +51,3 @@ h4 {
   font-size: 1.75rem;
   color: $ballpoint-pen-blue;
 }
-
