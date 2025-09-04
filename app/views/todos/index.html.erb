@@ -63,33 +63,26 @@
       </div>
     </div>
 
+    <!-- Swipe-Buttons -->
     <% if @journal %>
-      <%= link_to "<", journal_path(@journal), class: "button-swipe left" %>
-      <%= link_to "v", todos_path(back_journal_id: @journal.id), class: "button-swipe down" %>
-      <!--backlink -->
-    <% else %>
-      <%= link_to 'Back', todos_path(journal_id: params[:back_journal_id]) if params[:back_journal_id].present? %>
+      <div class="swipe-button-box left">
+        <%= link_to "Journal", journal_path(@journal), class: "button-swipe" %>
+      </div>
+      <div class="swipe-button-box down">
+        <%= link_to "my To-Do List", todos_path(back_journal_id: @journal.id), class: "button-swipe" %>
+      </div>
+    <% elsif params[:back_journal_id] %>
+      <div class="swipe-button-box up">
+        <%= link_to Journal.find(journal_id: params[:back_journal_id]), todos_path(journal_id: params[:back_journal_id]), class: "button-swipe" %>
+      </div>
+    <% else%>
+      <div class="swipe-button-box left">
+        <%= link_to "Journal", new_journal_path, class: "button-swipe" %>
+      </div>
     <% end %>
     </div>
 </div>
 
-<!-- Swipe-Buttons -->
-<% if @journal %>
-  <div class="swipe-button-box left">
-    <%= link_to "Journal", journal_path(@journal), class: "button-swipe" %>
-  </div>
-  <div class="swipe-button-box down">
-    <%= link_to "my To-Do List", todos_path(back_journal_id: @journal.id), class: "button-swipe" %>
-  </div>
-<% elsif params[:back_journal_id] %>
-  <div class="swipe-button-box up">
-    <%= link_to "back", todos_path(journal_id: params[:back_journal_id]), class: "button-swipe" %>
-  </div>
-<% else%>
-  <div class="swipe-button-box left">
-    <%= link_to "Journal", new_journal_path, class: "button-swipe" %>
-  </div>
-<% end %>
 
 
 <!--  Typed.js Animation -->
