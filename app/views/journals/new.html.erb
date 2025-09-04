@@ -3,7 +3,7 @@
 <%# Previous journals %>
 <% older_journal = Journal.all.order(created_at: :desc).first %>
 
-<div class="journal-new-page"
+<div class="journal-new-page main-container"
      data-controller="swipe"
      data-swipe-right-url-value="<%= root_path %>"
      data-swipe-left-url-value="<%= todos_path %>"

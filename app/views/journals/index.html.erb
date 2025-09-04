@@ -1,27 +1,28 @@
-<% content_for :body_class, "crumbled-paper" %>
+<% content_for :body_class, "aquarell-paper" %>
+
 <div
 data-controller="swipe"
 data-swipe-down-url-value="<%= root_path %>">
 
 
 
-<div class="journals">
-  <h1 class="typewriter">My Journals</h1>
-  <div class="journal-form-wrapper">
+<div class="journals main container">
+  <h1 class="special-headline">My Journals</h1>
+  <div class="journal-form-wrapper mt-md">
     <%#  Journal Title & Summary %>
     <ul class="list-unstyled">
     <% @journals.order(created_at: :desc)
                 .group_by { |j| j.created_at.beginning_of_month }
                 .each do |month, journals| %>
       <li>
-        <h2><%= month.strftime("%B %Y") %></h2>
-        <ul class="list-unstyled">
+        <h3><%= month.strftime("%B %Y") %></h3>
+        <ul class="list-unstyled mt-md">
           <% journals.each do |journal| %>
             <li>
               <div class="journal-header">
-                <div class="journal-title-date">
+                <div class="journal-title-date ai-output mt-sm">
                   <span class="journal-date"><%= journal.created_at.strftime("%d") %></span>
-                  <h4 class="handwritten">
+                  <h4>
                     <%= link_to journal.title, journal_path(journal),  class: "text-decoration-none text-reset" %>
                   </h4>
                 </div>
