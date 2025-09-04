@@ -22,11 +22,21 @@
     <% end %>
 
     <!-- Filter & Navigation -->
-    <div class="filter-nav mt-sm">
+    <div class="filter-nav mt-sm ai-output">
       <!-- Filter Status -->
       <%= link_to "All", todos_path(journal_id: @journal), class: "marker-link" %>
       <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "marker-link" %>
 
+
+      <%= form_with url: todos_path, method: :get, class: "d-flex align-items-center d-inline-block ms-2 dropdown" do %>
+        <%= hidden_field_tag :journal_id, params[:journal_id] %>
+        <%= select_tag :tag,
+                        options_for_select(TodosController::PREDEFINED_CATEGORIES, params[:tag]),
+                        include_blank: "filter",
+                        class: "form-select",
+                        onchange: "this.form.requestSubmit()" %>
+      <% end %>
+    </div>
 
       <!-- Categories Dropdown -->
       <div class="dropdown" data-controller="dropdown">
@@ -42,7 +52,6 @@
           <% end %>
         </ul>
       </div>
-    </div>
 
     <!-- To-Do List -->
   <ul id="todos" class="list-unstyled mt-tn">

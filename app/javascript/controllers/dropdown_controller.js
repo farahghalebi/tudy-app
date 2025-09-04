@@ -12,6 +12,7 @@ export default class extends Controller {
   }
 
   toggle(event) {
+    console.log("meow")
     event.preventDefault()
     this.menuTarget.classList.toggle("show")
   }
