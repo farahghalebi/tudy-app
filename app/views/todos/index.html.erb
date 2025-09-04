@@ -10,69 +10,72 @@
       data-swipe-down-url-value="<%= todos_path(journal_id: params[:back_journal_id]) if params[:back_journal_id].present? %>"
   <% end %>
 >
+  <div class="main-container">
+    <!-- Journal Title -->
+    <% if @journal %>
 
-<!-- Journal Title -->
-<% if @journal %>
+    <!-- id="element" to contain animated typing -->
+    <h1 id="journal-title" class="special-headline"><span id="element"></span><%= @journal.title %></h1>
 
-<!-- id="element" to contain animated typing -->
-<h1 id="journal-title" class="special-headline"><span id="element"></span><%= @journal.title %></h1>
-
-<% else %>
-  <h1 class="special-headline">My To-Do List</h1>
-<% end %>
-
-<!-- Filter & Navigation -->
-<div class="filter-nav">
-  <!-- Filter Status -->
-  <%= link_to "All", todos_path(journal_id: @journal), class: "btn" %>
-  <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "btn" %>
-
-  <!-- Categories Dropdown -->
-  <div class="dropdown" data-controller="dropdown">
-    <button class="filter-select" type="button" data-action="click->dropdown#toggle" aria-haspopup="true" aria-expanded="false">
-      <%= params[:tag].presence || "Categories" %>
-    </button>
-
-    <ul class="dropdown-menu" data-dropdown-target="menu">
-      <% TodosController::PREDEFINED_CATEGORIES.each do |category| %>
-        <li>
-          <%= link_to category, todos_path(journal_id: @journal, tag: category), class: "dropdown-item" %>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
-
-<!-- To-Do List -->
-<ul id="todos" class="list-unstyled">
-  <% if @todos_by_tag %>
-    <% @todos_by_tag.each do |tag_name, todos| %>
-      <li class="category-wrapper">
-        <h2 class="category-heading left-align user-content"><span><%= tag_name %></span></h2>
-      <%= render partial: 'todo', collection: todos %>
+    <% else %>
+      <h1 class="special-headline">My To-Do List</h1>
     <% end %>
-  <% elsif !@todos.empty? %>
-    <%= render partial: 'todo', collection: @todos %>
-  <% else %>
-    <p class="user-content">No To-Do's found.</p>
-  <% end %>
-</ul>
 
-<div data-controller="toggle">
-  <button data-action="click->toggle#toggleForm">➕</button>
+    <!-- Filter & Navigation -->
+    <div class="filter-nav mt-sm">
+      <!-- Filter Status -->
+      <%= link_to "All", todos_path(journal_id: @journal), class: "marker-link" %>
+      <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "marker-link" %>
 
-  <div id="new_todo_form" data-toggle-target="form" style="display:none;">
-    <%= render "form", todo: @todo, url: @journal ? journal_todos_path(@journal) : todos_path %>
-  </div>
-</div>
 
-<% if @journal %>
-  <%= link_to "<", journal_path(@journal), class: "button-swipe left" %>
-  <%= link_to "v", todos_path(back_journal_id: @journal.id), class: "button-swipe down" %>
-  <!--backlink -->
-<% else %>
-  <%= link_to 'Back', todos_path(journal_id: params[:back_journal_id]) if params[:back_journal_id].present? %>
-<% end %>
+      <!-- Categories Dropdown -->
+      <div class="dropdown" data-controller="dropdown">
+        <button class="filter-select marker-link ai-output" type="button" data-action="click->dropdown#toggle" aria-haspopup="true" aria-expanded="false">
+          <%= params[:tag].presence || "Categories" %>
+        </button>
+
+        <ul class="dropdown-menu" data-dropdown-target="menu">
+          <% TodosController::PREDEFINED_CATEGORIES.each do |category| %>
+            <li>
+              <%= link_to category, todos_path(journal_id: @journal, tag: category), class: "dropdown-item" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <!-- To-Do List -->
+  <ul id="todos" class="list-unstyled mt-tn">
+    <% if @todos_by_tag %>
+      <% @todos_by_tag.each do |tag_name, todos| %>
+        <li class="category-wrapper">
+          <h2 class="category-heading left-align user-content"><span><%= tag_name %></span></h2>
+        <%= render partial: 'todo', collection: todos %>
+      </li>
+      <% end %>
+    <% elsif !@todos.empty? %>
+      <%= render partial: 'todo', collection: @todos %>
+    <% else %>
+      <p class="user-content">No To-Do's found.</p>
+    <% end %>
+  </ul>
+
+    <div data-controller="toggle">
+      <button data-action="click->toggle#toggleForm">➕</button>
+
+      <div id="new_todo_form" data-toggle-target="form" style="display:none;">
+        <%= render "form", todo: @todo, url: @journal ? journal_todos_path(@journal) : todos_path %>
+      </div>
+    </div>
+
+    <% if @journal %>
+      <%= link_to "<", journal_path(@journal), class: "button-swipe left" %>
+      <%= link_to "v", todos_path(back_journal_id: @journal.id), class: "button-swipe down" %>
+      <!--backlink -->
+    <% else %>
+      <%= link_to 'Back', todos_path(journal_id: params[:back_journal_id]) if params[:back_journal_id].present? %>
+    <% end %>
+    </div>
 </div>
 
 <%#  Typed.js Animation - %>

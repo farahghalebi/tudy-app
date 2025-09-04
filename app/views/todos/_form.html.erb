@@ -1,24 +1,19 @@
 <!--app/views/todos/_form.html.erb-->
 
-<%= form_with(model: todo) do |form| %>
+<%= form_with(model: todo, local: true, html: { class: "post-it-form" }) do |form| %>
   <%= hidden_field_tag :journal_id, params[:journal_id] %>
 
-  <div class="user-content">
-    <%= form.label :title, class: "ai-output" %>
-    <%= form.text_field :title, class: "user-content" %>
-  </div>
+  <%= form.label :title, class: "ai-output" %>
+  <%= form.text_field :title, class: "post-it-input", placeholder: "Titel" %>
 
-  <div class="user-content">
-    <%= form.label :description, class: "ai-output" %>
-    <%= form.text_area :description, class: "user-content" %>
-  </div>
+  <%= form.label :description, class: "ai-output" %>
+  <%= form.text_area :description, class: "post-it-input", placeholder: "Description" %>
 
-  <div class="user-content">
-    <%= form.label :due_date, class: "ai-output" %>
-    <%= form.date_field :due_date, class: "user-content" %>
-  </div>
+  <%= form.label :due_date, class: "ai-output" %>
+  <%= form.date_field :due_date, class: "post-it-input" %>
 
-  <div>
-    <%= form.submit "Add", class: "btn" %>
-  </div>
+  <%= form.label :tag, "Category", class: "ai-output" %>
+  <%= form.select :tag, TodosController::PREDEFINED_CATEGORIES, { include_blank: "Select a category" }, { class: "post-it-input" } %>
+
+  <%= form.submit "Add", class: "btn" %>
 <% end %>

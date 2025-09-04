@@ -3,7 +3,6 @@
 .main-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 1rem;
-  /* Füge eine Top-Margin hinzu, um den gesamten Inhalt der Seite zu verschieben */
-  margin-top: 3rem;
+  // padding: 0 1rem 0 3.5rem; // top, right, left, bottom --> skewed to the left like a real notebook entry
+  margin-top: 2rem;
 }

@@ -1,6 +1,5 @@
 // app/assets/stylesheets/components/_buttons.scss
 
-
 .swipe-button-box {
   position: fixed;
   display: flex;
@@ -140,5 +139,44 @@
     button.filter-select.active {
       color: $fountain-pen-black;
     }
+  }
+}
+
+// ICON SIZE
+
+.icon {
+  width: 24px;
+  height: 24px;
+}
+
+// MARKING ON HOVER
+
+.marker-link {
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  color: $fountain-pen-black;
+  font-family: $journal-ai-typewriter-body;
+  font-size: 0.9rem;
+  padding: 0.25rem 0.5rem;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0.01em; // slightly of the center
+    width: 0;
+    height: 1.2em; // text height
+    background: rgba(255, 200, 0, 0.4); // Markercolor >>> have to adjust color
+    z-index: -1; // hinter dem Text
+    transition: width 4s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+
+  &:active::after {
+    background: rgba(255, 180, 0, 0.6); // darkens when clicked
   }
 }
