@@ -1,9 +1,13 @@
 <% content_for :body_class, "crumbled-paper" %>
+<%# Previous/next journals - DEFINE THESE FIRST %>
+<% older_journal = current_user.journals.where("created_at < ?", @journal.created_at).order(created_at: :desc).first %>
+<% newer_journal = current_user.journals.where("created_at > ?", @journal.created_at).order(created_at: :asc).first %>
 
-<%# Previous/next journals %>
-<% older_journal = Journal.where("created_at < ?", @journal.created_at).order(created_at: :desc).first %>
-<% newer_journal = Journal.where("created_at > ?", @journal.created_at).order(created_at: :asc).first %>
-
+<div
+  data-controller="swipe"
+  data-swipe-down-url-value="<%= root_path %>"
+  data-swipe-up-url-value="<% if older_journal %><%= journal_path(older_journal) %><% else %><%= journal_path(newer_journal) if newer_journal %><% end %>"
+  style="min-height: 100vh;">
 <div class="journal-new-page">
   <div class="typewriter journal-date p-5">
     <%# AI Generated Stuff to Toggle %>
