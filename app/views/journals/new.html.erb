@@ -30,7 +30,7 @@
       <div class="swipe-button-box right">
         <%# ??? How can we style the right button - ideally like show page ??? %>
         <%= f.button :submit,
-                    "TODOs",
+                    "todos",
                     class: "button-swipe",
                     data: { "form-validation-target": "submit" } %>
       </div>
@@ -67,7 +67,7 @@
 
     <% if older_journal %>
       <div class="swipe-button-box down">
-        <%= link_to "Next Journal", journal_path(older_journal), class: "button-swipe" %>
+        <%= link_to "older", journal_path(older_journal), class: "button-swipe" %>
       </div>
     <% end %>
 

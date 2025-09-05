@@ -73,21 +73,21 @@
     <!-- Swipe-Buttons -->
     <% if @journal %>
       <div class="swipe-button-box left">
-        <%= link_to "Journal", journal_path(@journal), class: "button-swipe" %>
+        <%= link_to "journal", journal_path(@journal), class: "button-swipe" %>
       </div>
       <div class="swipe-button-box down">
-        <%= link_to "my To-Do List", todos_path(back_journal_id: @journal.id), class: "button-swipe" %>
+        <%= link_to "todo list", todos_path(back_journal_id: @journal.id), class: "button-swipe" %>
       </div>
     <% elsif params[:back_journal_id] %>
       <div class="swipe-button-box up">
-        <%= link_to Journal.find(params[:back_journal_id]).title, todos_path(journal_id: params[:back_journal_id]), class: "button-swipe" %>
+        <%= link_to "back", todos_path(journal_id: params[:back_journal_id]), class: "button-swipe" %>
       </div>
       <div class="swipe-button-box left">
-        <%= link_to "New Journal", new_journal_path, class: "button-swipe" %>
+        <%= link_to "new", new_journal_path, class: "button-swipe" %>
       </div>
     <% else%>
       <div class="swipe-button-box left">
-        <%= link_to "New Journal", new_journal_path, class: "button-swipe" %>
+        <%= link_to "new", new_journal_path, class: "button-swipe" %>
       </div>
     <% end %>
   </div>

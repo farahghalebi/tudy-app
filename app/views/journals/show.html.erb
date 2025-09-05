@@ -48,24 +48,24 @@
 
     <!-- Navigation-Buttons -->
     <div class="swipe-button-box left">
-      <%= link_to "Journals", journals_path(journal_id: @journal.id), class: "button-swipe" %>
+      <%= link_to "all", journals_path(journal_id: @journal.id), class: "button-swipe" %>
     </div>
 
     <div class="swipe-button-box right">
-      <%= link_to "Todos", todos_path(journal_id: @journal.id), class: "button-swipe" %>
+      <%= link_to "todos", todos_path(journal_id: @journal.id), class: "button-swipe" %>
     </div>
 
     <div class="swipe-button-box up">
       <% if newer_journal %>
-        <%= link_to "Previous Journal", journal_path(newer_journal), class: "button-swipe" %>
+        <%= link_to "newer", journal_path(newer_journal), class: "button-swipe" %>
       <% else %>
-        <%= link_to "New Journal", new_journal_path, class: "button-swipe" %>
+        <%= link_to "new", new_journal_path, class: "button-swipe" %>
       <% end %>
     </div>
 
     <% if older_journal %>
       <div class="swipe-button-box down">
-        <%= link_to "Next Journal", journal_path(older_journal), class: "button-swipe" %>
+        <%= link_to "older", journal_path(older_journal), class: "button-swipe" %>
       </div>
     <% end %>
 
