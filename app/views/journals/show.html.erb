@@ -25,7 +25,7 @@
 
       <div id="toggle-box" data-journal-toggle-target="box" class="hidden">
 
-        <p class="user-content mt-md tags-display-journal"><%= @journal.summary %></p>
+        <p class="ai-output mt-md tags-display-journal"><%= @journal.summary %></p>
 
         <% if @journal.tags.any? %>
           <ul class="list-unstyled horizontal-list ai-output">
@@ -43,7 +43,7 @@
   <div class="journal-form-wrapper">
 
     <div class="user-content">
-      <p class="user-content mt-sm"><%= @journal.content %></p>
+      <p class="user-content mt-md"><%= @journal.content %></p>
     </div>
 
     <!-- Navigation-Buttons -->
