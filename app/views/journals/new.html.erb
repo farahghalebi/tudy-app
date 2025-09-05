@@ -19,7 +19,7 @@
   <div class="journal-form-wrapper">
     <%= simple_form_for @journal, html: { class: "journal-form", data: { action: "input->form-validation#toggleSubmitButton" } } do |f| %>
 
-      <%= f.error_notification %>
+      <%#= f.error_notification %>
 
       <%= f.input :content,
                   as: :text,

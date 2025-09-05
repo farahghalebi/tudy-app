@@ -40,7 +40,7 @@ class JournalsController < ApplicationController
     end
 
     if @journal.save
-      redirect_to todos_path(journal_id: @journal.id)
+      redirect_to todos_path(journal_id: @journal.id), notice: nil
     else
       render :new, status: :unprocessable_entity
       return
