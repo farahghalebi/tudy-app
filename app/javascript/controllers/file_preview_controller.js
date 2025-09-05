@@ -11,8 +11,8 @@ export default class extends Controller {
 
   updateFilename() {
     const fileName = this.inputTarget.files.length
-      ? this.inputTarget.files[0].name
-      : "No file attached"
+      ? "✓"
+      : ""
     this.filenameTarget.textContent = fileName
   }
 }

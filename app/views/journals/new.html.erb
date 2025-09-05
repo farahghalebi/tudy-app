@@ -41,17 +41,14 @@
                     }
         %>
 
-        <label for="journal_file_input"
-              class="d-inline-flex align-items-center gap-2"
-              style="z-index: 1000; position: relative;">
-          <span class="fs-1">📎</span>
+        <div data-file-preview-target="filename" class="mt-1 fs-1 text-muted">
+        </div>
+        
+        <label for="journal_file_input" style="z-index: 1000; position: relative;">
+          <%= image_tag "icons/camera_icon.png", alt: "Picture Upload", width: 40, height: 40 %>
         </label>
 
-        <div data-file-preview-target="filename" class="mt-1 small text-muted">
-          No file attached
-        </div>
       </div>
-
 
     <% end %>
   </div>
