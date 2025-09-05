@@ -29,22 +29,25 @@
                     data: { "form-validation-target": "submit" } %>
       </div>
 
-      <%= f.input :file,
-                  as: :file,
-                  label: false,
-                  input_html: {
-                    id: "journal_file_input",
-                    class: "d-none",
-                  }
-                  %>
+      <%# File Input %>
+      <div data-controller="file-preview">
+        <%= f.input :file,
+                    as: :file,
+                    label: false,
+                    input_html: {
+                      id: "journal_file_input",
+                      class: "d-none",
+                      data: { "file-preview-target": "input", "action": "change->file-preview#updateFilename" }
+                    }
+        %>
 
-      <%# a label styled like a button with an icon %>
-      <div class="d-flex justify-content-end mt-2">
-        <label for="journal_file_input"
-              class="d-inline-flex align-items-center gap-2"
-              style="z-index: 1000; position: relative;">
-          <span class="fs-1">📎</span>
+        <div data-file-preview-target="filename" class="mt-1 fs-1 text-muted">
+        </div>
+        
+        <label for="journal_file_input" style="z-index: 1000; position: relative;">
+          <%= image_tag "icons/camera_icon.png", alt: "Picture Upload", width: 40, height: 40 %>
         </label>
+
       </div>
 
     <% end %>
