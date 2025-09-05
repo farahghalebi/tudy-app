@@ -1,16 +1,21 @@
 .custom-container {
-  .main-home-page{
+  .main-home-page {
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     width: 100%;
     max-width: 1200px;
+    padding: 1rem;
   }
 }
 
 .post-it-stack {
-  width: 70%;
+  width: 80%;
   max-width: 800px;
+  gap: 1.5rem;
+  margin: auto;
 
   .post-it {
     max-width: 700px;
@@ -55,8 +60,15 @@
 
 // 3. Post-it: Blue
 .post-it:nth-child(3) {
+  display: none;
   --post-it-rotation: -15deg;
   background-color: #b1d4ff;
+}
+
+@media (min-width: 768px) {
+  .post-it:nth-child(3) {
+    display: flex;
+  }
 }
 
 .post-it-stack {
