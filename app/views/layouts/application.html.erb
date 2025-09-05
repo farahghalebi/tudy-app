@@ -8,25 +8,30 @@
     <meta name="view-transition" content="same-origin" />
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
-    <%# PWA stuff %>
-    <link rel="manifest" href="<%= asset_path 'manifest.json' %>">
-    <link rel="apple-touch-icon" href="app/assets/images/icons/apple-icon-180x180.png">
+
+    <%# --- PWA Manifest --- %>
+    <link rel="manifest" href="<%= asset_path('manifest.json') %>">
+
+    <%# --- Apple Touch Icons (for iOS home screen install) --- %>
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= asset_path('icons/apple-icon-180x180.png') %>">
+    <link rel="apple-touch-icon" sizes="152x152" href="<%= asset_path('icons/apple-icon-152x152.png') %>">
+    <link rel="apple-touch-icon" sizes="120x120" href="<%= asset_path('icons/apple-icon-120x120.png') %>">
     <%= render 'shared/ios_pwa_links' %>
 
-    <%# thumbnail stuff %>
-
+    <%# --- Favicons --- %>
     <%= favicon_link_tag 'favicon.png' %>
+
     <!-- Open Graph (WhatsApp, Slack, Facebook, Telegram) -->
-    <meta property="og:title" content="Tudy App - Study Smarter 📚">
-    <meta property="og:description" content="Your daily journaling and study companion.">
+    <meta property="og:title" content="Tudy App - ToDo's Smarter 📚">
+    <meta property="og:description" content="Your daily journaling and ToDo's companion.">
     <meta property="og:image" content="<%= asset_url('preview.png') %>">
     <meta property="og:url" content="<%= root_url %>">
     <meta property="og:type" content="website">
 
     <!-- Twitter Card (Twitter/X) -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Tudy App - Study Smarter 📚">
-    <meta name="twitter:description" content="Your daily journaling and study companion.">
+    <meta name="twitter:title" content="Tudy App - ToDo's Smarter 📚">
+    <meta name="twitter:description" content="Your daily journaling and ToDo's companion.">
     <meta name="twitter:image" content="<%= asset_url('preview.png') %>">
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
