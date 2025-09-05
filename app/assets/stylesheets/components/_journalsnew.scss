@@ -5,10 +5,9 @@
 .journal-new-page h1 {
   font-family: $journal-handwritten;
   color: $ballpoint-pen-blue;
+  text-align: start;
   font-size: 2rem;
   padding: 2rem  0 4rem 0; // top, right, bottom, left
-  // padding: 2rem 4rem 4rem 2rem; // top, right, bottom, left
-  text-align: center;
 }
 
 // form layout
