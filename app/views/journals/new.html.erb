@@ -7,7 +7,13 @@
      data-controller="swipe"
      data-swipe-right-url-value="<%= root_path %>"
      data-swipe-left-url-value="<%= todos_path %>"
-     data-swipe-up-url-value="<%= journal_path(older_journal) %>">
+
+    <% if older_journal %>
+     data-swipe-up-url-value="<%= journal_path(older_journal) %>"
+    <% end %>
+
+     >
+
   <h1>a penny for your thought...</h1>
 
   <div class="journal-form-wrapper">
@@ -43,7 +49,7 @@
 
         <div data-file-preview-target="filename" class="mt-1 fs-1 text-muted">
         </div>
-        
+
         <label for="journal_file_input" style="z-index: 1000; position: relative;">
           <%= image_tag "icons/camera_icon.png", alt: "Picture Upload", width: 40, height: 40 %>
         </label>
