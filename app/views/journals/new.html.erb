@@ -1,7 +1,7 @@
 <% content_for :body_class, "crumbled-paper" %>
 
 <%# Previous journals %>
-<% older_journal = Journal.all.order(created_at: :desc).first %>
+<% older_journal = current_user.journals.order(created_at: :desc).first %>
 
 <div class="journal-new-page main-container"
      data-controller="swipe"
