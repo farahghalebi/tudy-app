@@ -30,7 +30,7 @@
     <% end %>
 
     <!-- Filter & Navigation -->
-    <div class="filter-nav mt-sm ai-output">
+    <div class="filter-nav mt-sm ai-output align-with-paper">
       <!-- Filter Status -->
       <%= link_to "All", todos_path(journal_id: @journal), class: "marker-link" %>
       <%= link_to "Completed", todos_path(journal_id: @journal, filter: 'completed'), class: "marker-link" %>
@@ -45,7 +45,7 @@
     </div>
 
     <!-- To-Do List -->
-    <ul id="todos" class="list-unstyled mt-tn">
+    <ul id="todos" class="list-unstyled mt-tn align-with-paper">
       <% if @todos_by_tag %>
         <% @todos_by_tag.each do |tag_name, todos| %>
           <li class="category-wrapper">
