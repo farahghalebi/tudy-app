@@ -3,22 +3,27 @@
   data-swipe-left-url-value="<%= new_journal_path %>"
   data-swipe-up-url-value="<%= journals_path %>"
 
-  style="min-height:100vh;">        <!-- Post-its -->
+  style="min-height:100vh;">
+
+  <!-- Post-its -->
   <div class="post-it-stack">
+
     <!-- 1st Post-it -->
-    <div class="post-it">
-          <div class="home-post-it-content">
-        <h1 class="special-headline">Tudy...</h1>
-        <div class="handwritten-user">
-          <span id="element" class="user-content"></span>
+    <div class="post-it yellow">
+      <%= link_to new_journal_path, class: "text-reset text-decoration-none" do %>
+        <div class="home-post-it-content">
+          <h1 class="special-headline">Tudy...</h1>
+          <div class="handwritten-user">
+            <span id="element" class="user-content"></span>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
 
     <!-- 2nd Post it  -->
-    <div class="post-it">
-      <%= image_tag "todo_list_icon.png" %>
-    </div>
+    <%= link_to todos_path do%>
+      <%= image_tag "todo_list_icon.png", class: "post-it pink" %>
+    <% end %>
 
     <!-- 3rd Post-it -->
     <!-- if we want it again just copy the "second post" above -->
@@ -36,6 +41,7 @@
   <div class="swipe-button-box down">
     <%= link_to "all", journals_path, class: "button-swipe" %>
   </div>
+
 </div>
 
 <!-- Typed.js Animation -->

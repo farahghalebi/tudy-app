@@ -47,13 +47,13 @@
 }
 
 // 1. Post-it: Yellow
-.post-it:nth-child(1) {
+.post-it.yellow {
   --post-it-rotation: -15deg;
   background-color: #fff9b1;
 }
 
 // 2. Post-it: Rosa
-.post-it:nth-child(2) {
+.post-it.pink {
   --post-it-rotation: 10deg;
   background-color: #ffb1c2;
 }
